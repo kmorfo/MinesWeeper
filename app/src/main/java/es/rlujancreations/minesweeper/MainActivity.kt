@@ -6,14 +6,18 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.AndroidEntryPoint
+import es.rlujancreations.minesweeper.ui.core.ContentWrapper
 import es.rlujancreations.minesweeper.ui.theme.MinesWeeperTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private lateinit var navigationController: NavHostController
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContent {
             MinesWeeperTheme {
@@ -22,7 +26,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
+                    navigationController = rememberNavController()
+                    ContentWrapper(navigationController = navigationController)
                 }
             }
         }
