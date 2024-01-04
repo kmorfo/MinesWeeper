@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import es.rlujancreations.minesweeper.data.Level
 import es.rlujancreations.minesweeper.ui.core.Routes.*
 import es.rlujancreations.minesweeper.ui.game.GameScreen
 import es.rlujancreations.minesweeper.ui.home.HomeScreen
@@ -19,16 +20,23 @@ fun ContentWrapper(navigationController: NavHostController) {
         composable(Home.route) {
             HomeScreen(navigateToGame = { level ->
                 navigationController.navigate(
-                    Game.createRoute(level)
+                    Routes.Game.createRoute(level)
                 )
             })
         }
         composable(
             Game.route,
-            arguments = listOf(navArgument("level") { type = NavType.IntType }),
+            arguments = listOf(navArgument("level") { type = NavType.StringType }),
         ) {
+            val levelRoute = it.arguments?.getString("level")
+            val level = when (levelRoute) {
+                "easy" -> Level.Easy
+                "medium" -> Level.Medium
+                "hard" -> Level.Hard
+                else -> Level.Easy // Default to Easy if route is not recognized
+            }
             GameScreen(
-                level = it.arguments?.getInt("level") ?: 0,
+                level = level,
                 navigateToHome = { navigationController.popBackStack() }
             )
         }
@@ -38,8 +46,12 @@ fun ContentWrapper(navigationController: NavHostController) {
 sealed class Routes(val route: String) {
     object Home : Routes("home")
     object Game : Routes("game/{level}") {
-        fun createRoute(level: Int): String {
-            return "game/$level"
+        fun createRoute(level: Level): String {
+            return when (level) {
+                is Level.Easy -> "game/easy"
+                is Level.Medium -> "game/medium"
+                is Level.Hard -> "game/hard"
+            }
         }
     }
 }

@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import es.rlujancreations.minesweeper.R
+import es.rlujancreations.minesweeper.data.Level
 import es.rlujancreations.minesweeper.ui.theme.DarkBlue
 import es.rlujancreations.minesweeper.ui.theme.LightBlue
 
@@ -35,7 +36,7 @@ import es.rlujancreations.minesweeper.ui.theme.LightBlue
 @Composable
 fun HomeScreen(
     homeViewModel: HomeViewModel = hiltViewModel(),
-    navigateToGame: (Int) -> Unit
+    navigateToGame: (Level) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -60,7 +61,7 @@ fun HomeScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0F3452)),
-            onClick = { navigateToGame(0) },
+            onClick = { navigateToGame(Level.Easy) },
         ) {
             Text("Jugar", fontWeight = FontWeight.Bold, color = Color.White)
         }
