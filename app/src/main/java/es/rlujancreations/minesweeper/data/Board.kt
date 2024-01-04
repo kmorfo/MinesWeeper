@@ -6,15 +6,16 @@ import kotlin.random.Random
 /**
  * Created by Raúl L.C. on 3/1/24.
  */
-class Board @Inject constructor(
-    private var level: Level,
-    var remainingMines: Int = level.mines
-) {
-    private var matrix: Array<IntArray> = Array(level.rows) { IntArray(level.columns) { 0 } }
+class Board @Inject constructor() {
+    private lateinit var level: Level
+    var remainingMines: Int = 0
+    private var matrix:  Array<IntArray> = emptyArray()
 
     fun initialize(newLevel:Level) {
-        level=newLevel
+        level = newLevel
         remainingMines = level.mines
+        matrix = Array(level.rows) { IntArray(level.columns) { 0 } }
+
         fillBoard()
         printBoard()
     }
