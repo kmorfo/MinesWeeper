@@ -7,12 +7,14 @@ import kotlin.random.Random
  * Created by Raúl L.C. on 3/1/24.
  */
 class Board @Inject constructor(
-    private val level: Level,
+    private var level: Level,
     var remainingMines: Int = level.mines
 ) {
     private var matrix: Array<IntArray> = Array(level.rows) { IntArray(level.columns) { 0 } }
 
-    init {
+    fun initialize(newLevel:Level) {
+        level=newLevel
+        remainingMines = level.mines
         fillBoard()
         printBoard()
     }
