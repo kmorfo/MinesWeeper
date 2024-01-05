@@ -39,6 +39,5 @@ class GameViewModel @Inject constructor(private val gameBoard: Board) : ViewMode
             }
         }
     }
-
-
 }
+
