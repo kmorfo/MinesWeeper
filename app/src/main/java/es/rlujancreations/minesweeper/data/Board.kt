@@ -8,12 +8,10 @@ import kotlin.random.Random
  */
 class Board @Inject constructor() {
     private lateinit var level: Level
-    var remainingMines: Int = 0
-    private var matrix:  Array<IntArray> = emptyArray()
+    private var matrix: Array<IntArray> = emptyArray()
 
-    fun initialize(newLevel:Level) {
+    fun initialize(newLevel: Level) {
         level = newLevel
-        remainingMines = level.mines
         matrix = Array(level.rows) { IntArray(level.columns) { 0 } }
 
         fillBoard()
@@ -50,9 +48,11 @@ class Board @Inject constructor() {
         }
     }
 
-    fun getCell(x: Int, y: Int): Int {
-        return matrix[x][y]
-    }
+    fun getCell(x: Int, y: Int): Int = matrix[x][y]
+
+    fun getMines(): Int = level.mines
+
+
 }
 
 sealed class Level(val rows: Int, val columns: Int, val mines: Int) {

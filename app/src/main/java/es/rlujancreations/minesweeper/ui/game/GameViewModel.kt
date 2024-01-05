@@ -16,15 +16,19 @@ import javax.inject.Inject
  * Created by Raúl L.C. on 3/1/24.
  */
 @HiltViewModel
-class GameViewModel @Inject constructor( private val gameBoard: Board) : ViewModel() {
+class GameViewModel @Inject constructor(private val gameBoard: Board) : ViewModel() {
     var _timeCounter = MutableStateFlow<Int>(0)
     val timeCounter: StateFlow<Int> = _timeCounter
 
-    fun createNewGame(level:Level) {
+    var _remainingMines = MutableStateFlow<Int>(0)
+    val remainingMines: StateFlow<Int> = _remainingMines
+
+    fun createNewGame(level: Level) {
         gameBoard.initialize(level)
+        _remainingMines.value = gameBoard.getMines()
+
         startCounter()
     }
-
 
 
     private fun startCounter() {
