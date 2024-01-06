@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MinesWeeper</string>
+
+    <string name="fourmines">There are four mines nearby</string>
+    <string name="threemines">There are three mines nearby</string>
+    <string name="twomines">There are two mines nearby</string>
+    <string name="onemine">There is a mine nearby</string>
+    <string name="mine">Mine</string>
+    <string name="flag">This cell is marked, its possible there is a mine here</string>
 </resources>
