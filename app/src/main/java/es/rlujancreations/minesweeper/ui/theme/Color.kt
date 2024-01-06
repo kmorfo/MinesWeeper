@@ -14,8 +14,8 @@ val DarkBlue = Color(0xFF0F3452)
 val LightBlue = Color(0xFF0BB7CD)
 
 //GameBoard colors
-val CounterBackground =Color(0xFF000000)
-val CounterShadowFont =Color(0xFF600200)
+val CounterBackground =Color(0xFF110000)
+val CounterShadowFont =Color(0xFF3C0605)
 val CounterFontColor =Color(0xFFF50E02)
 
 val BoardBackground =Color(0xFFC6C6C6)
