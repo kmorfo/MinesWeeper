@@ -1,6 +1,5 @@
 package es.rlujancreations.minesweeper.ui.game
 
-import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -15,7 +14,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Card
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -23,16 +24,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import es.rlujancreations.minesweeper.R
 import es.rlujancreations.minesweeper.data.Level
+import es.rlujancreations.minesweeper.ui.composables.TextButtonDialog
 import es.rlujancreations.minesweeper.ui.theme.BoardBackground
 import es.rlujancreations.minesweeper.ui.theme.HeaderBackground
 
@@ -53,15 +56,56 @@ fun GameScreen(
     val gameStatus: GameStatus by gameViewModel.gameStatus.collectAsState()
 
 
+    PauseDialog(
+        gameStatus = gameStatus,
+        onDismiss = { gameViewModel.changePauseStatus() },
+        navigateToHome = { navigateToHome() },
+        restartGame = { gameViewModel.restartGame() }
+    )
+
+
     Column(modifier = Modifier.fillMaxSize()) {
         GameHeader(
             gameStatus = gameStatus,
             timeCounter = timeCounter,
             remainingMines = remainingMines,
             modifier = Modifier,
-            onIconClick = { gameViewModel.onFaceIconPressed() })
+            onIconClick = { gameViewModel.changePauseStatus() })
 
         GameBoard(gameStatus = gameStatus)
+    }
+}
+
+@Composable
+fun PauseDialog(
+    gameStatus: GameStatus,
+    onDismiss: () -> Unit,
+    navigateToHome: () -> Unit,
+    restartGame: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    if (gameStatus == GameStatus.Paused) Dialog(onDismissRequest = { onDismiss() }) {
+        Card(modifier = modifier) {
+            Text(
+                text = stringResource(id = gameStatus.description),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold,
+                fontSize = 22.sp
+            )
+            TextButtonDialog(stringResource(id = R.string.resume), onClick = { onDismiss() })
+            TextButtonDialog(
+                stringResource(id = R.string.restart_game),
+                onClick = {
+                    restartGame()
+//                    onDismiss()
+                })
+            TextButtonDialog(
+                stringResource(id = R.string.return_to_main),
+                onClick = { navigateToHome() })
+        }
     }
 }
 

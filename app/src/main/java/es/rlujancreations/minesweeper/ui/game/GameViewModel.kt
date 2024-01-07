@@ -1,6 +1,5 @@
 package es.rlujancreations.minesweeper.ui.game
 
-import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
@@ -21,23 +20,33 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class GameViewModel @Inject constructor(private val gameBoard: Board) : ViewModel() {
-    var _gameStatus = MutableStateFlow<GameStatus>(GameStatus.Running)
+    private var _gameStatus = MutableStateFlow<GameStatus>(GameStatus.Running)
     val gameStatus: StateFlow<GameStatus> = _gameStatus
 
-    var _timeCounter = MutableStateFlow<Int>(0)
+    private var _timeCounter = MutableStateFlow<Int>(0)
     val timeCounter: StateFlow<Int> = _timeCounter
 
-    var _remainingMines = MutableStateFlow<Int>(0)
+    private var _remainingMines = MutableStateFlow<Int>(0)
     val remainingMines: StateFlow<Int> = _remainingMines
 
+    lateinit var level: Level
 
-    fun createNewGame(level: Level) {
+    fun createNewGame(newLevel: Level) {
+        level = newLevel
+        funInitGame(level)
+    }
+
+    fun restartGame() {
+        funInitGame(level)
+        _timeCounter.value = 0
+    }
+
+    private fun funInitGame(level: Level) {
         gameBoard.initialize(level)
         _remainingMines.value = gameBoard.getMines()
 
         startCounter()
     }
-
 
     private fun startCounter() {
         viewModelScope.launch(Dispatchers.Main) {
@@ -48,7 +57,7 @@ class GameViewModel @Inject constructor(private val gameBoard: Board) : ViewMode
         }
     }
 
-    fun onFaceIconPressed() {
+    fun changePauseStatus() {
         _gameStatus.value =
             if (_gameStatus.value == GameStatus.Running) GameStatus.Paused else GameStatus.Running
         if (_gameStatus.value == GameStatus.Running) startCounter()
