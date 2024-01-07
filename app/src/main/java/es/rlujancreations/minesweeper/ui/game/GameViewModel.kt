@@ -1,28 +1,14 @@
 package es.rlujancreations.minesweeper.ui.game
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.IconButton
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import android.util.Log
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import es.rlujancreations.minesweeper.R
 import es.rlujancreations.minesweeper.data.Board
 import es.rlujancreations.minesweeper.data.Level
-import es.rlujancreations.minesweeper.ui.theme.BoardBackground
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,11 +21,15 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class GameViewModel @Inject constructor(private val gameBoard: Board) : ViewModel() {
+    var _gameStatus = MutableStateFlow<GameStatus>(GameStatus.Running)
+    val gameStatus: StateFlow<GameStatus> = _gameStatus
+
     var _timeCounter = MutableStateFlow<Int>(0)
     val timeCounter: StateFlow<Int> = _timeCounter
 
     var _remainingMines = MutableStateFlow<Int>(0)
     val remainingMines: StateFlow<Int> = _remainingMines
+
 
     fun createNewGame(level: Level) {
         gameBoard.initialize(level)
@@ -51,12 +41,28 @@ class GameViewModel @Inject constructor(private val gameBoard: Board) : ViewMode
 
     private fun startCounter() {
         viewModelScope.launch(Dispatchers.Main) {
-            while (true) {
+            while (_gameStatus.value == GameStatus.Running) {
                 _timeCounter.value++
                 delay(1000)
             }
         }
     }
+
+    fun onFaceIconPressed() {
+        _gameStatus.value =
+            if (_gameStatus.value == GameStatus.Running) GameStatus.Paused else GameStatus.Running
+        if (_gameStatus.value == GameStatus.Running) startCounter()
+    }
+
 }
 
 
+sealed class GameStatus(@DrawableRes val icon: Int, @StringRes val description: Int) {
+    object Paused : GameStatus(icon = R.drawable.face_sleep, description = R.string.face_sleeping)
+    object Running : GameStatus(icon = R.drawable.face_smiling, description = R.string.face_smiling)
+    object Winned :
+        GameStatus(icon = R.drawable.face_partying, description = R.string.face_partying)
+
+    object Losed : GameStatus(icon = R.drawable.face_dizzy, description = R.string.face_dizzy)
+
+}

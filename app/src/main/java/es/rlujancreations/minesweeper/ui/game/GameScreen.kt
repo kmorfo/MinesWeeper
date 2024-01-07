@@ -1,5 +1,6 @@
 package es.rlujancreations.minesweeper.ui.game
 
+import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -22,7 +23,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -47,16 +50,23 @@ fun GameScreen(
     }
     val timeCounter: Int by gameViewModel.timeCounter.collectAsState()
     val remainingMines: Int by gameViewModel.remainingMines.collectAsState()
+    val gameStatus: GameStatus by gameViewModel.gameStatus.collectAsState()
+
 
     Column(modifier = Modifier.fillMaxSize()) {
-        GameHeader(timeCounter = timeCounter, remainingMines = remainingMines, modifier = Modifier)
-        GameBoard()
+        GameHeader(
+            gameStatus = gameStatus,
+            timeCounter = timeCounter,
+            remainingMines = remainingMines,
+            modifier = Modifier,
+            onIconClick = { gameViewModel.onFaceIconPressed() })
+
+        GameBoard(gameStatus = gameStatus)
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun GameBoard(modifier: Modifier = Modifier) {
+fun GameBoard(gameStatus: GameStatus, modifier: Modifier = Modifier) {
     val screenWidthDp = LocalConfiguration.current.screenWidthDp
     val screenHeightDp = LocalConfiguration.current.screenHeightDp
     Row(
@@ -67,18 +77,25 @@ fun GameBoard(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun GameHeader(timeCounter: Int, remainingMines: Int, modifier: Modifier = Modifier) {
+fun GameHeader(
+    gameStatus: GameStatus,
+    timeCounter: Int,
+    remainingMines: Int,
+    modifier: Modifier = Modifier,
+    onIconClick: () -> Unit
+) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .height(80.dp)
             .background(HeaderBackground)
+            .border(1.dp, Color.Gray)
             .padding(16.dp), verticalAlignment = Alignment.CenterVertically
     ) {
         Spacer(modifier = Modifier.width(6.dp))
         CounterBoard(number = remainingMines)
         Spacer(modifier = Modifier.weight(1f))
-        IconFaces() { }
+        IconFaces(gameStatus = gameStatus) { onIconClick() }
         Spacer(modifier = Modifier.weight(1f))
         CounterBoard(number = timeCounter)
         Spacer(modifier = Modifier.width(6.dp))
@@ -86,7 +103,7 @@ fun GameHeader(timeCounter: Int, remainingMines: Int, modifier: Modifier = Modif
 }
 
 @Composable
-fun IconFaces(modifier: Modifier = Modifier, onIconClick: () -> Unit) {
+fun IconFaces(gameStatus: GameStatus, modifier: Modifier = Modifier, onIconClick: () -> Unit) {
     Row(
         modifier = modifier
             .background(BoardBackground)
@@ -103,8 +120,8 @@ fun IconFaces(modifier: Modifier = Modifier, onIconClick: () -> Unit) {
         ) {
             IconButton(onClick = { onIconClick() }) {
                 Image(
-                    painter = painterResource(id = R.drawable.face_smiling),
-                    contentDescription = stringResource(id = R.string.face_smiling)
+                    painter = painterResource(id = gameStatus.icon),
+                    contentDescription = stringResource(id = gameStatus.description)
                 )
             }
         }

@@ -9,6 +9,9 @@
     <string name="flag">This cell is marked, its possible there is a mine here</string>
 
     <string name="face_smiling">The game is running</string>
+    <string name="face_sleeping">The game is paused</string>
+    <string name="face_partying">Game won</string>
+    <string name="face_dizzy">Game lost</string>
 
 
 </resources>
