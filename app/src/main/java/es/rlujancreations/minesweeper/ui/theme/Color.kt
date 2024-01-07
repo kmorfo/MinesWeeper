@@ -18,6 +18,7 @@ val CounterBackground =Color(0xFF110000)
 val CounterShadowFont =Color(0xFF3C0605)
 val CounterFontColor =Color(0xFFF50E02)
 
+val HeaderBackground =Color(0xFFB3B1B1)
 val BoardBackground =Color(0xFFC6C6C6)
 
 

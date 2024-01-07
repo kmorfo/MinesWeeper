@@ -4,9 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -30,12 +29,12 @@ import es.rlujancreations.minesweeper.ui.theme.Orbitron
  * Created by Raúl L.C. on 6/1/24.
  */
 @Composable
-fun CounterBoard(number: String, modifier: Modifier = Modifier) {
+fun CounterBoard(number: Int = 10, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .background(BoardBackground)
-            .height(25.dp)
-            .width(52.dp)
+            .height(40.dp)
+            .width(72.dp)
             .border(1.dp, Color.Gray),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
@@ -43,29 +42,29 @@ fun CounterBoard(number: String, modifier: Modifier = Modifier) {
         Box(
             modifier = modifier
                 .background(CounterBackground)
-                .height(24.dp)
-                .width(50.dp)
+                .height(38.dp)
+                .width(70.dp)
                 .border(1.dp, CounterShadowFont)
         ) {
             Text(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(start = 2.dp),
+                    .fillMaxWidth()
+                    .padding(end = 6.dp).align(Alignment.Center),
                 text = "888",
                 fontFamily = Orbitron,
                 color = CounterShadowFont,
                 fontWeight = FontWeight.Bold,
-                fontSize = 18.sp, textAlign = TextAlign.Left
+                fontSize = 22.sp, textAlign = TextAlign.Right
             )
             Text(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(start = 2.dp),
-                text = number,
+                    .fillMaxWidth()
+                    .padding(end = 6.dp).align(Alignment.Center),
+                text = "$number",
                 fontFamily = Orbitron,
                 color = CounterFontColor,
                 fontWeight = FontWeight.Bold,
-                fontSize = 18.sp, textAlign = TextAlign.Left
+                fontSize = 22.sp, textAlign = TextAlign.Right
             )
         }
 

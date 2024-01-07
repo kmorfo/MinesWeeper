@@ -7,4 +7,8 @@
     <string name="onemine">There is a mine nearby</string>
     <string name="mine">Mine</string>
     <string name="flag">This cell is marked, its possible there is a mine here</string>
+
+    <string name="face_smiling">The game is running</string>
+
+
 </resources>
