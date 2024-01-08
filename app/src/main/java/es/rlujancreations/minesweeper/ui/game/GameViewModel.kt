@@ -19,7 +19,7 @@ import javax.inject.Inject
  * Created by Raúl L.C. on 3/1/24.
  */
 @HiltViewModel
-class GameViewModel @Inject constructor(private val gameBoard: Board) : ViewModel() {
+class GameViewModel @Inject constructor(val gameBoard: Board) : ViewModel() {
     private var _gameStatus = MutableStateFlow<GameStatus>(GameStatus.Running)
     val gameStatus: StateFlow<GameStatus> = _gameStatus
 

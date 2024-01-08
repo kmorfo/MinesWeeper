@@ -1,5 +1,6 @@
 package es.rlujancreations.minesweeper.ui.game
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -14,8 +15,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -34,9 +36,12 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import es.rlujancreations.minesweeper.R
+import es.rlujancreations.minesweeper.data.Board
+import es.rlujancreations.minesweeper.data.Cell
 import es.rlujancreations.minesweeper.data.Level
 import es.rlujancreations.minesweeper.ui.composables.TextButtonDialog
 import es.rlujancreations.minesweeper.ui.theme.BoardBackground
+import es.rlujancreations.minesweeper.ui.theme.DarkBlue
 import es.rlujancreations.minesweeper.ui.theme.HeaderBackground
 
 /**
@@ -72,7 +77,7 @@ fun GameScreen(
             modifier = Modifier,
             onIconClick = { gameViewModel.changePauseStatus() })
 
-        GameBoard(gameStatus = gameStatus)
+        GameBoard(gameBoard = gameViewModel.gameBoard,level = level)
     }
 }
 
@@ -85,7 +90,11 @@ fun PauseDialog(
     modifier: Modifier = Modifier
 ) {
     if (gameStatus == GameStatus.Paused) Dialog(onDismissRequest = { onDismiss() }) {
-        Card(modifier = modifier) {
+        OutlinedCard(
+            modifier = modifier,
+            colors = CardDefaults.cardColors(containerColor = DarkBlue),
+            border = BorderStroke(1.dp, Color.White)
+        ) {
             Text(
                 text = stringResource(id = gameStatus.description),
                 modifier = Modifier
@@ -93,15 +102,19 @@ fun PauseDialog(
                     .padding(vertical = 8.dp),
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
+                color = Color.White,
                 fontSize = 22.sp
             )
+            Box(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .height(1.dp)
+                    .background(Color.White)
+            ) {}
             TextButtonDialog(stringResource(id = R.string.resume), onClick = { onDismiss() })
             TextButtonDialog(
                 stringResource(id = R.string.restart_game),
-                onClick = {
-                    restartGame()
-//                    onDismiss()
-                })
+                onClick = { restartGame() })
             TextButtonDialog(
                 stringResource(id = R.string.return_to_main),
                 onClick = { navigateToHome() })
@@ -110,14 +123,33 @@ fun PauseDialog(
 }
 
 @Composable
-fun GameBoard(gameStatus: GameStatus, modifier: Modifier = Modifier) {
+fun GameBoard(gameBoard: Board, level: Level, modifier: Modifier = Modifier) {
     val screenWidthDp = LocalConfiguration.current.screenWidthDp
     val screenHeightDp = LocalConfiguration.current.screenHeightDp
-    Row(
+    val cellWith = screenWidthDp / level.columns
+    val cellHeight = (screenHeightDp - 65) / level.rows
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .background(BoardBackground), Arrangement.SpaceBetween
-    ) {}
+    ) {
+        for (row in 0..<level.rows)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(cellHeight.dp)
+            ) {
+                for (column in 0..<level.columns) {
+                    CellBoard(
+                        cellIcon = CellIcon.Unclicked,
+                        cell= Cell(x=row,y=column,gameBoard.getCell(row,column)),
+                        modifier = Modifier
+                            .width(cellWith.dp)
+                            .height(cellHeight.dp)
+                    )
+                }
+            }
+    }
 }
 
 @Composable
@@ -131,7 +163,7 @@ fun GameHeader(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(80.dp)
+            .height(65.dp)
             .background(HeaderBackground)
             .border(1.dp, Color.Gray)
             .padding(16.dp), verticalAlignment = Alignment.CenterVertically
