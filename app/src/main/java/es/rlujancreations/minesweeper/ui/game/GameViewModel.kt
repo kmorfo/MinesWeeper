@@ -32,9 +32,13 @@ class GameViewModel @Inject constructor(val gameBoard: Board) : ViewModel() {
     private var _remainingMines = MutableStateFlow<Int>(0)
     val remainingMines: StateFlow<Int> = _remainingMines
 
-    lateinit var level: Level
+    var level: Level = Level.Easy
 
-     fun createNewGame(newLevel: Level) {
+    private var _cells = MutableStateFlow<Array<Array<Cell>>>(emptyArray())
+    val cells: StateFlow<Array<Array<Cell>>> = _cells
+
+
+    fun createNewGame(newLevel: Level) {
         level = newLevel
         initGame(level)
     }
@@ -48,8 +52,22 @@ class GameViewModel @Inject constructor(val gameBoard: Board) : ViewModel() {
         gameBoard.initialize(level)
         _remainingMines.value = gameBoard.getMines()
 
+        initCells()
         startCounter()
     }
+
+    private fun initCells() {
+        var index: Int = 0
+        val updatedCells = Array(level.rows) { row ->
+            Array(level.columns) { column ->
+                val cellState = gameBoard.getCell(row, column)
+                Cell(x = row, y = column, index = index++, cellStatus = cellState)
+            }
+        }
+
+        _cells.value = updatedCells
+    }
+
 
     private fun startCounter() {
         viewModelScope.launch(Dispatchers.Main) {
@@ -67,7 +85,7 @@ class GameViewModel @Inject constructor(val gameBoard: Board) : ViewModel() {
     }
 
     fun onLongClick(cell: Cell) {
-
+        print("hola")
         Log.d("TEST", "long click ${cell.cellStatus}")
     }
 

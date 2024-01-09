@@ -36,7 +36,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import es.rlujancreations.minesweeper.R
-import es.rlujancreations.minesweeper.data.Board
 import es.rlujancreations.minesweeper.data.Cell
 import es.rlujancreations.minesweeper.data.Level
 import es.rlujancreations.minesweeper.ui.composables.TextButtonDialog
@@ -56,6 +55,8 @@ fun GameScreen(
     LaunchedEffect(true) {
         gameViewModel.createNewGame(level)
     }
+
+    val cells: Array<Array<Cell>> by gameViewModel.cells.collectAsState(emptyArray())
 
     val timeCounter: Int by gameViewModel.timeCounter.collectAsState()
     val remainingMines: Int by gameViewModel.remainingMines.collectAsState()
@@ -78,11 +79,7 @@ fun GameScreen(
             modifier = Modifier,
             onIconClick = { gameViewModel.changePauseStatus() })
 
-        GameBoard(
-            gameBoard = gameViewModel.gameBoard,
-            level = level,
-            onClick = { gameViewModel.onClick(it) },
-            onLongClick = { gameViewModel.onLongClick(it) })
+        GameBoard(gameViewModel = gameViewModel, cells = cells)
     }
 }
 
@@ -129,44 +126,40 @@ fun PauseDialog(
 
 @Composable
 fun GameBoard(
-    gameBoard: Board,
-    level: Level,
-    modifier: Modifier = Modifier,
-    onClick: (Cell) -> Unit,
-    onLongClick: (Cell) -> Unit
+    gameViewModel: GameViewModel,
+    cells: Array<Array<Cell>>,
+    modifier: Modifier = Modifier
 ) {
     val screenWidthDp = LocalConfiguration.current.screenWidthDp
     val screenHeightDp = LocalConfiguration.current.screenHeightDp
-    val cellWith = screenWidthDp / level.columns
-    val cellHeight = (screenHeightDp - 65) / level.rows
+    val cellWith = screenWidthDp / gameViewModel.level.columns
+    val cellHeight = (screenHeightDp - 65) / gameViewModel.level.rows
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(BoardBackground),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        for (row in 0..<level.rows)
+        for (row in cells.indices) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(cellHeight.dp)
             ) {
-                for (column in 0..<level.columns) {
+                for (column in cells[row].indices) {
+                    val cell = cells[row][column]
                     CellBoard(
                         cellIcon = CellIcon.Unclicked,
-                        cell = Cell(
-                            x = row,
-                            y = column,
-                            gameBoard.getCell(x = row, y = column)
-                        ),
+                        cell = cell,
                         modifier = Modifier
                             .width(cellWith.dp)
                             .height(cellHeight.dp),
-                        onClick = { onClick(it) },
-                        onLongClick = { onLongClick(it) }
+                        onClick = { gameViewModel.onClick(it) },
+                        onLongClick = { gameViewModel.onLongClick(it) }
                     )
                 }
             }
+        }
     }
 }
 
