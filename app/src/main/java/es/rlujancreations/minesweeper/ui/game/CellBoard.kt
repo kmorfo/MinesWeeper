@@ -3,9 +3,12 @@ package es.rlujancreations.minesweeper.ui.game
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -26,8 +29,15 @@ import es.rlujancreations.minesweeper.ui.theme.BoardBackground
  * Created by Raúl L.C. on 3/1/24.
  */
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CellBoard(cellIcon: CellIcon, cell: Cell, modifier: Modifier = Modifier) {
+fun CellBoard(
+    cellIcon: CellIcon,
+    cell: Cell,
+    modifier: Modifier = Modifier,
+    onClick: (Cell) -> Unit,
+    onLongClick: (Cell) -> Unit
+) {
     if (cellIcon == CellIcon.Empty) {
         Box(
             modifier = modifier
@@ -38,7 +48,11 @@ fun CellBoard(cellIcon: CellIcon, cell: Cell, modifier: Modifier = Modifier) {
         Row(
             modifier = modifier
                 .background(BoardBackground)
-                .border(1.dp, Color.Black),
+                .border(1.dp, Color.Black)
+                .combinedClickable(
+                    onClick = { onClick(cell) },
+                    onLongClick = { onLongClick(cell) }
+                ),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {

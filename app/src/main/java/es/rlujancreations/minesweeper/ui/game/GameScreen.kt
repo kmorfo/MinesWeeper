@@ -56,6 +56,7 @@ fun GameScreen(
     LaunchedEffect(true) {
         gameViewModel.createNewGame(level)
     }
+
     val timeCounter: Int by gameViewModel.timeCounter.collectAsState()
     val remainingMines: Int by gameViewModel.remainingMines.collectAsState()
     val gameStatus: GameStatus by gameViewModel.gameStatus.collectAsState()
@@ -77,7 +78,11 @@ fun GameScreen(
             modifier = Modifier,
             onIconClick = { gameViewModel.changePauseStatus() })
 
-        GameBoard(gameBoard = gameViewModel.gameBoard,level = level)
+        GameBoard(
+            gameBoard = gameViewModel.gameBoard,
+            level = level,
+            onClick = { gameViewModel.onClick(it) },
+            onLongClick = { gameViewModel.onLongClick(it) })
     }
 }
 
@@ -123,7 +128,13 @@ fun PauseDialog(
 }
 
 @Composable
-fun GameBoard(gameBoard: Board, level: Level, modifier: Modifier = Modifier) {
+fun GameBoard(
+    gameBoard: Board,
+    level: Level,
+    modifier: Modifier = Modifier,
+    onClick: (Cell) -> Unit,
+    onLongClick: (Cell) -> Unit
+) {
     val screenWidthDp = LocalConfiguration.current.screenWidthDp
     val screenHeightDp = LocalConfiguration.current.screenHeightDp
     val cellWith = screenWidthDp / level.columns
@@ -131,7 +142,8 @@ fun GameBoard(gameBoard: Board, level: Level, modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(BoardBackground), Arrangement.SpaceBetween
+            .background(BoardBackground),
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
         for (row in 0..<level.rows)
             Row(
@@ -142,10 +154,16 @@ fun GameBoard(gameBoard: Board, level: Level, modifier: Modifier = Modifier) {
                 for (column in 0..<level.columns) {
                     CellBoard(
                         cellIcon = CellIcon.Unclicked,
-                        cell= Cell(x=row,y=column,gameBoard.getCell(row,column)),
+                        cell = Cell(
+                            x = row,
+                            y = column,
+                            gameBoard.getCell(x = row, y = column)
+                        ),
                         modifier = Modifier
                             .width(cellWith.dp)
-                            .height(cellHeight.dp)
+                            .height(cellHeight.dp),
+                        onClick = { onClick(it) },
+                        onLongClick = { onLongClick(it) }
                     )
                 }
             }

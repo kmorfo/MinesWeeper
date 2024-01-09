@@ -4,3 +4,6 @@
 
 # MinesWeeper
 This is my version of the classic game minesweeper developed in kotlin
+
+## Isn't working yet
+I'm working for make it playable, I hope this week launch first playable release

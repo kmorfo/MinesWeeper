@@ -18,7 +18,7 @@ class Board @Inject constructor() {
         printBoard()
     }
 
-    fun fillBoard() {
+    private fun fillBoard() {
         //Add mines to board
         for (i in 0..<level.mines) {
             var rX: Int = Random.nextInt(level.rows)
@@ -48,7 +48,15 @@ class Board @Inject constructor() {
         }
     }
 
-    fun getCell(x: Int, y: Int): Int = matrix[x][y]
+    fun getCell(x: Int, y: Int): Int {
+        return if (x in matrix.indices && y in 0 until matrix[0].size) {
+            matrix[x][y]
+        } else {
+            // Handle the case where x or y is out of bounds
+            // For example, return a default value or throw an exception
+            0
+        }
+    }
 
     fun getMines(): Int = level.mines
 

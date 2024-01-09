@@ -1,5 +1,6 @@
 package es.rlujancreations.minesweeper.ui.game
 
+import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import es.rlujancreations.minesweeper.R
 import es.rlujancreations.minesweeper.data.Board
+import es.rlujancreations.minesweeper.data.Cell
+import es.rlujancreations.minesweeper.data.CellStatus
 import es.rlujancreations.minesweeper.data.Level
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -31,17 +34,17 @@ class GameViewModel @Inject constructor(val gameBoard: Board) : ViewModel() {
 
     lateinit var level: Level
 
-    fun createNewGame(newLevel: Level) {
+     fun createNewGame(newLevel: Level) {
         level = newLevel
-        funInitGame(level)
+        initGame(level)
     }
 
     fun restartGame() {
-        funInitGame(level)
+        initGame(level)
         _timeCounter.value = 0
     }
 
-    private fun funInitGame(level: Level) {
+    private fun initGame(level: Level) {
         gameBoard.initialize(level)
         _remainingMines.value = gameBoard.getMines()
 
@@ -63,6 +66,14 @@ class GameViewModel @Inject constructor(val gameBoard: Board) : ViewModel() {
         if (_gameStatus.value == GameStatus.Running) startCounter()
     }
 
+    fun onLongClick(cell: Cell) {
+
+        Log.d("TEST", "long click ${cell.cellStatus}")
+    }
+
+    fun onClick(cell: Cell) {
+        Log.d("TEST", "click ${cell.cellStatus}")
+    }
 }
 
 
