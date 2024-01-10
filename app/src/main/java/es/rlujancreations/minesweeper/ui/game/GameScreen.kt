@@ -149,7 +149,6 @@ fun GameBoard(
                 for (column in cells[row].indices) {
                     val cell = cells[row][column]
                     CellBoard(
-                        cellIcon = CellIcon.Unclicked,
                         cell = cell,
                         modifier = Modifier
                             .width(cellWith.dp)

@@ -60,8 +60,14 @@ class GameViewModel @Inject constructor(val gameBoard: Board) : ViewModel() {
         var index: Int = 0
         val updatedCells = Array(level.rows) { row ->
             Array(level.columns) { column ->
-                val cellState = gameBoard.getCell(row, column)
-                Cell(x = row, y = column, index = index++, cellStatus = cellState)
+                val mines = gameBoard.getCell(row, column)
+                Cell(
+                    x = row,
+                    y = column,
+                    index = index++,
+                    mines = mines,
+                    status = CellStatus.Untouched
+                )
             }
         }
 
@@ -85,12 +91,12 @@ class GameViewModel @Inject constructor(val gameBoard: Board) : ViewModel() {
     }
 
     fun onLongClick(cell: Cell) {
-        print("hola")
-        Log.d("TEST", "long click ${cell.cellStatus}")
+        cell.mines = 6
+        Log.d("TEST", "longclick cambio ${cell.index}")
     }
 
     fun onClick(cell: Cell) {
-        Log.d("TEST", "click ${cell.cellStatus}")
+        Log.d("TEST", "click ${cell.index}")
     }
 }
 

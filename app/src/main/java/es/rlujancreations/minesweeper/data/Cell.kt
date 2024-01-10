@@ -1,14 +1,12 @@
 package es.rlujancreations.minesweeper.data
 
-import androidx.compose.ui.graphics.vector.ImageVector
-
 /**
  * Created by Raúl L.C. on 3/1/24.
  */
-data class Cell(val x: Int, val y: Int, val index: Int, var cellStatus: Int)
+data class Cell(val x: Int, val y: Int, val index: Int, var mines: Int, var status: CellStatus)
 sealed class CellStatus {
-    object Unmarked : CellStatus()
+    object Untouched : CellStatus()
     object Marked : CellStatus()
-    object Mine : CellStatus()
+    object Discovered: CellStatus()
 
 }
