@@ -85,8 +85,8 @@ fun CellBoard(
                     .border(1.dp, Color.Gray)
             ) {
                 Image(
-                    painter = painterResource(id = cellIcon.icon!!),
-                    contentDescription = stringResource(id = cellIcon.description!!),
+                    painter = painterResource(id = CellIcon.Marked.icon!!),
+                    contentDescription = stringResource(id = CellIcon.Marked.description!!),
                     modifier = Modifier.align(Alignment.Center)
                 )
             }
@@ -97,7 +97,7 @@ fun CellBoard(
             Box(
                 modifier = modifier
                     .background(BoardBackground)
-                    .border(1.dp, Color.Gray)//Maybe I quit this border later
+//                    .border(1.dp, Color.Gray)//Maybe I quit this border later
             ) { }
         } else {
             Row(

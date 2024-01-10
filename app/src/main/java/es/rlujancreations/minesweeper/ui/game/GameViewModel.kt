@@ -57,17 +57,10 @@ class GameViewModel @Inject constructor(val gameBoard: Board) : ViewModel() {
     }
 
     private fun initCells() {
-        var index: Int = 0
         val updatedCells = Array(level.rows) { row ->
             Array(level.columns) { column ->
                 val mines = gameBoard.getCell(row, column)
-                Cell(
-                    x = row,
-                    y = column,
-                    index = index++,
-                    mines = mines,
-                    status = CellStatus.Untouched
-                )
+                Cell(x = row, y = column, mines = mines, status = CellStatus.Untouched)
             }
         }
 
@@ -91,12 +84,50 @@ class GameViewModel @Inject constructor(val gameBoard: Board) : ViewModel() {
     }
 
     fun onLongClick(cell: Cell) {
-        cell.mines = 6
-        Log.d("TEST", "longclick cambio ${cell.index}")
+        if (cell.status == CellStatus.Marked) {
+            _remainingMines.value++
+            cell.status = CellStatus.Untouched
+        } else if (remainingMines.value > 0) {
+            _remainingMines.value--
+            cell.status = CellStatus.Marked
+        } else {
+            //TODO Is necessary notify user because there are no mines available
+            Log.d("TEST", "No mines available")
+        }
     }
 
     fun onClick(cell: Cell) {
-        Log.d("TEST", "click ${cell.index}")
+        //TODO check game status
+        if (cell.mines == -1) {
+            //TODO Set the end of game and notify user
+            Log.d("TEST", "Game lost")
+            cell.status = CellStatus.Discovered
+            return
+        }
+        if (cell.mines == 0) {
+            cell.status = CellStatus.Discovered
+            showCells(cell)
+            return
+        }
+        if (cell.mines > 0) {
+            cell.status = CellStatus.Discovered
+            return
+        }
+    }
+
+    private fun showCells(touched: Cell) {
+        val cellX: Int = touched.x
+        val cellY: Int = touched.y
+
+        for (tempX in cellX - 1..cellX + 1)
+            for (tempY in cellY - 1..cellY + 1) {
+                if (tempX < 0 || tempX >= level.rows || tempY < 0 || tempY >= level.columns) continue
+                if (_cells.value[tempX][tempY].mines != -1 && _cells.value[tempX][tempY].status == CellStatus.Untouched) {
+                    Log.d("INFO","Test X:${tempX} Y:${tempY}")
+                    Log.d("INFO","Pulsado ${_cells.value[tempX][tempY].mines}")
+                    onClick(cell = _cells.value[tempX][tempY])
+                }
+            }
     }
 }
 
