@@ -6,11 +6,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,6 +25,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import es.rlujancreations.minesweeper.R
 import es.rlujancreations.minesweeper.data.Level
+import es.rlujancreations.minesweeper.ui.composables.OutlinedCustomButton
 import es.rlujancreations.minesweeper.ui.theme.DarkBlue
 import es.rlujancreations.minesweeper.ui.theme.LightBlue
 
@@ -58,24 +58,29 @@ fun HomeScreen(
                 .size(220.dp)
         )
         Spacer(modifier = Modifier.weight(2f))
-        OutlinedButton(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0F3452)),
-            onClick = { navigateToGame(Level.Easy) },
-        ) {
-            Text("Play", fontWeight = FontWeight.Bold, color = Color.White)
-        }
-        OutlinedButton(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0F3452)),
-            onClick = { navigateToHelp() },
-        ) {
-            Text(stringResource(id = R.string.help), fontWeight = FontWeight.Bold, color = Color.White)
-        }
+
+        OutlinedCustomButton(
+            text = R.string.btn_play_easy,
+            color = Color(0xFF3F51B5),
+            onClick = { navigateToGame(Level.Easy) })
+        OutlinedCustomButton(
+            text = R.string.btn_play_medium,
+            color = Color(0xFF0F3452),
+            onClick = { navigateToGame(Level.Medium) })
+        OutlinedCustomButton(
+            text = R.string.btn_play_hard,
+            color = Color(0xFFF44336),
+            onClick = { navigateToGame(Level.Hard) })
+
         Spacer(modifier = Modifier.weight(1f))
+        FloatingActionButton(containerColor = DarkBlue,onClick = { navigateToHelp() }) {
+            Icon(
+                modifier = Modifier.size(35.dp),
+                painter = painterResource(id = R.drawable.ic_help),
+                contentDescription = stringResource(id = R.string.help),
+                tint = Color.White
+            )
+        }
+        Spacer(modifier = Modifier.weight(0.5f))
     }
 }

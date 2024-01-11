@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">MinesWeeper</string>
     <string name="back_home">Back to Home</string>
+    <string name="btn_play_easy">Easy</string>
+    <string name="btn_play_medium">Medium</string>
+    <string name="btn_play_hard">Hard</string>
 
     <string name="fourmines">There are four mines nearby</string>
     <string name="threemines">There are three mines nearby</string>
