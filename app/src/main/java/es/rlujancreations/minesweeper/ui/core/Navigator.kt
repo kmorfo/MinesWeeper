@@ -9,6 +9,7 @@ import androidx.navigation.navArgument
 import es.rlujancreations.minesweeper.data.Level
 import es.rlujancreations.minesweeper.ui.core.Routes.*
 import es.rlujancreations.minesweeper.ui.game.GameScreen
+import es.rlujancreations.minesweeper.ui.help.HelpScreen
 import es.rlujancreations.minesweeper.ui.home.HomeScreen
 
 /**
@@ -22,7 +23,7 @@ fun ContentWrapper(navigationController: NavHostController) {
                 navigationController.navigate(
                     Routes.Game.createRoute(level)
                 )
-            })
+            }, navigateToHelp = { navigationController.navigate(Routes.Help.route) })
         }
         composable(
             Game.route,
@@ -40,6 +41,9 @@ fun ContentWrapper(navigationController: NavHostController) {
                 navigateToHome = { navigationController.popBackStack() }
             )
         }
+        composable(Help.route) {
+            HelpScreen(navigateToHome = { navigationController.popBackStack() })
+        }
     }
 }
 
@@ -54,4 +58,6 @@ sealed class Routes(val route: String) {
             }
         }
     }
+
+    object Help : Routes("help")
 }

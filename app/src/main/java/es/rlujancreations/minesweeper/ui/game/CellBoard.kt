@@ -94,26 +94,18 @@ fun CellBoard(
     }
     if (cell.status == CellStatus.Discovered) {
         if (cellIcon == CellIcon.Empty) {
-            Box(
-                modifier = modifier
-                    .background(BoardBackground)
-//                    .border(1.dp, Color.Gray)//Maybe I quit this border later
-            ) { }
+            Box(modifier = modifier.background(BoardBackground)) { }
         } else {
             Row(
                 modifier = modifier
                     .background(BoardBackground)
                     .border(1.dp, Color.Black),
-//                    .combinedClickable(
-//                        onClick = { onClick(cell) },
-//                        onLongClick = { onLongClick(cell) }
-//                    ),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
                 Box(
                     modifier = modifier
-                        .background(BoardBackground)
+                        .background(if (cellIcon==CellIcon.Mine) Color.Red else BoardBackground)
                         .padding(3.dp)
                         .border(1.dp, Color.Gray)
                 ) {

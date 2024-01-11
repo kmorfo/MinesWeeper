@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -36,7 +37,8 @@ import es.rlujancreations.minesweeper.ui.theme.LightBlue
 @Composable
 fun HomeScreen(
     homeViewModel: HomeViewModel = hiltViewModel(),
-    navigateToGame: (Level) -> Unit
+    navigateToGame: (Level) -> Unit,
+    navigateToHelp: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -49,7 +51,7 @@ fun HomeScreen(
         Text("MinesWeeper", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 36.sp)
         Image(
             painter = painterResource(R.drawable.ic_mineseeper),
-            contentDescription = "speaker.name",
+            contentDescription = "App Logo",
             contentScale = ContentScale.Fit,
             modifier = Modifier
                 .padding(top = 16.dp)
@@ -63,7 +65,16 @@ fun HomeScreen(
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0F3452)),
             onClick = { navigateToGame(Level.Easy) },
         ) {
-            Text("Jugar", fontWeight = FontWeight.Bold, color = Color.White)
+            Text("Play", fontWeight = FontWeight.Bold, color = Color.White)
+        }
+        OutlinedButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0F3452)),
+            onClick = { navigateToHelp() },
+        ) {
+            Text(stringResource(id = R.string.help), fontWeight = FontWeight.Bold, color = Color.White)
         }
         Spacer(modifier = Modifier.weight(1f))
     }

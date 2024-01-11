@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">MinesWeeper</string>
+    <string name="back_home">Back to Home</string>
 
     <string name="fourmines">There are four mines nearby</string>
     <string name="threemines">There are three mines nearby</string>
@@ -18,7 +19,7 @@
     <string name="help">Help!</string>
     <string name="resume">Resume</string>
 
-
-
+    <string name="help_text">The board is divided into cells, with mines randomly distributed. To win, you need to open all the cells. The number on a cell shows the number of mines adjacent to it. Using this information, you can determine cells that are safe, and cells that contain mines. Cells suspected of being mines can be marked with a flag clicking on the corresponding cell and holding.</string>
+    <string name="help_new">To start a new game, restart or return to home screen, you can click on the face at the top of the board or use the space bar. The remaining number of mines is displayed in the left corner, and the game timer is displayed in the right corner.</string>
 
 </resources>
