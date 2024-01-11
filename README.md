@@ -17,4 +17,7 @@ This is my version of the classic game minesweeper developed in kotlin
 <img src="./githubimages/home.png"
      alt="HomeScreen"
      style="float: left; margin-right: 10px;" width="300px"/>
+<img src="./githubimages/game.png"
+     alt="Screenshot game level easy"
+     style="float: left; margin-right: 10px;" width="300px"/>
 
