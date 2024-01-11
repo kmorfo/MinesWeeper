@@ -1,4 +1,4 @@
-package es.rlujancreations.minesweeper.ui.game
+package es.rlujancreations.minesweeper.ui.game.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

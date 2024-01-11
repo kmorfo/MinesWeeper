@@ -1,9 +1,20 @@
 <p align="center">
-  <a href="https://rlujancreations.es/" target="blank"><img src="https://rlujancreations.es/assets/img/logo%20rlujan%20SF.png" width="200" alt="RLujanCreations Logo" /></a>
+  <a href="https://rlujancreations.es/" target="blank"><img src="./githubimages/logo.png" width="300px" alt="RLujanCreations Logo" /></a>
 </p>
 
 # MinesWeeper
 This is my version of the classic game minesweeper developed in kotlin
 
-## Isn't working yet
-I'm working for make it playable, I hope this week launch first playable release
+## ToDo List
+- [ ] End of game **status**
+- [ ] Dialog Status End of Game
+- [ ] Toast for alerts
+- [ ] Animations
+- [ ] Persistence for save records
+- [ ] Dialog records
+
+# Screenshots
+<img src="./githubimages/home.png"
+     alt="HomeScreen"
+     style="float: left; margin-right: 10px;" width="300px"/>
+

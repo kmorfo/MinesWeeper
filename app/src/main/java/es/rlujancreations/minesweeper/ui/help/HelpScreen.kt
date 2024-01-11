@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
@@ -39,6 +41,7 @@ fun HelpScreen(modifier: Modifier = Modifier, navigateToHome: () -> Unit) {
     Column(
         modifier = modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .background(
                 brush = Brush.verticalGradient(colors = listOf(HeaderBackground, BoardBackground))
             )
@@ -61,9 +64,10 @@ fun HelpScreen(modifier: Modifier = Modifier, navigateToHome: () -> Unit) {
             contentScale = ContentScale.Fit,
             modifier = Modifier
                 .padding(top = 16.dp)
-                .size(180.dp).align(Alignment.CenterHorizontally)
+                .size(180.dp)
+                .align(Alignment.CenterHorizontally)
         )
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = stringResource(id = R.string.help_text),
             textAlign = TextAlign.Justify,
@@ -85,9 +89,8 @@ fun HelpScreen(modifier: Modifier = Modifier, navigateToHome: () -> Unit) {
             contentScale = ContentScale.Fit,
             modifier = Modifier
                 .padding(top = 16.dp)
-                .size(320.dp).align(Alignment.CenterHorizontally)
+                .size(320.dp)
+                .align(Alignment.CenterHorizontally)
         )
-
-
     }
 }

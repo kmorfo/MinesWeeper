@@ -39,6 +39,8 @@ import es.rlujancreations.minesweeper.R
 import es.rlujancreations.minesweeper.data.Cell
 import es.rlujancreations.minesweeper.data.Level
 import es.rlujancreations.minesweeper.ui.composables.TextButtonDialog
+import es.rlujancreations.minesweeper.ui.game.composables.CellBoard
+import es.rlujancreations.minesweeper.ui.game.composables.CounterBoard
 import es.rlujancreations.minesweeper.ui.theme.BoardBackground
 import es.rlujancreations.minesweeper.ui.theme.DarkBlue
 import es.rlujancreations.minesweeper.ui.theme.HeaderBackground
@@ -135,7 +137,7 @@ fun GameBoard(
     val cellWith = screenWidthDp / gameViewModel.level.columns
     val cellHeight = (screenHeightDp - 65) / gameViewModel.level.rows
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(BoardBackground),
         verticalArrangement = Arrangement.SpaceBetween
