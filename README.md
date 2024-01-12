@@ -6,8 +6,8 @@
 This is my version of the classic game minesweeper developed in kotlin
 
 ## ToDo List
-- [ ] End of game **status**
-- [ ] Dialog Status End of Game
+- [ X ] End of game **status**
+- [ X ] Dialog Status End of Game
 - [ ] Toast for alerts
 - [ ] Animations
 - [ ] Persistence for save records
@@ -20,4 +20,6 @@ This is my version of the classic game minesweeper developed in kotlin
 <img src="./githubimages/game.png"
      alt="Screenshot game level easy"
      style="float: left; margin-right: 10px;" width="300px"/>
-
+<img src="./githubimages/losegame.png"
+alt="Screenshot game level easy"
+style="float: left; margin-right: 10px;" width="300px"/>

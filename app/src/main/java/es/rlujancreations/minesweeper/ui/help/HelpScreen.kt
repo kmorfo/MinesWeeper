@@ -84,7 +84,7 @@ fun HelpScreen(modifier: Modifier = Modifier, navigateToHome: () -> Unit) {
             modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp)
         )
         Image(
-            painter = painterResource(R.drawable.logorc),
+            painter = painterResource(R.drawable.ic_logorc),
             contentDescription = "RLujanCreations Logo",
             contentScale = ContentScale.Fit,
             modifier = Modifier

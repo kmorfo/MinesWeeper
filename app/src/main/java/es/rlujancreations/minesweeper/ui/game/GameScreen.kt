@@ -26,11 +26,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -38,10 +40,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import es.rlujancreations.minesweeper.R
 import es.rlujancreations.minesweeper.data.Cell
 import es.rlujancreations.minesweeper.data.Level
+import es.rlujancreations.minesweeper.ui.composables.OutlinedCustomButton
 import es.rlujancreations.minesweeper.ui.composables.TextButtonDialog
 import es.rlujancreations.minesweeper.ui.game.composables.CellBoard
 import es.rlujancreations.minesweeper.ui.game.composables.CounterBoard
 import es.rlujancreations.minesweeper.ui.theme.BoardBackground
+import es.rlujancreations.minesweeper.ui.theme.CounterFontColor
 import es.rlujancreations.minesweeper.ui.theme.DarkBlue
 import es.rlujancreations.minesweeper.ui.theme.HeaderBackground
 
@@ -71,6 +75,11 @@ fun GameScreen(
         navigateToHome = { navigateToHome() },
         restartGame = { gameViewModel.restartGame() }
     )
+    ResultDialog(
+        gameStatus = gameStatus,
+        onDismiss = { gameViewModel.changePauseStatus() },
+        restartGame = { gameViewModel.restartGame() }
+    )
 
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -84,6 +93,49 @@ fun GameScreen(
         GameBoard(gameViewModel = gameViewModel, cells = cells)
     }
 }
+
+
+@Composable
+fun ResultDialog(
+    gameStatus: GameStatus,
+    onDismiss: () -> Unit,
+    restartGame: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    if (gameStatus == GameStatus.Winned || gameStatus == GameStatus.Losed)
+        Dialog(onDismissRequest = { onDismiss() }) {
+            OutlinedCard(
+                modifier = modifier,
+                border = BorderStroke(1.dp, CounterFontColor)
+            ) {
+                Text(
+                    modifier = Modifier
+                        .width(180.dp)
+                        .padding(vertical = 8.dp),
+                    text = stringResource(id = gameStatus.description),
+                    color = if (gameStatus == GameStatus.Losed) CounterFontColor else DarkBlue,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 22.sp,
+                    textAlign = TextAlign.Center
+                )
+                Image(
+                    painter = painterResource(id = gameStatus.image),
+                    contentDescription = stringResource(id = gameStatus.description),
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .padding(top = 16.dp)
+                        .size(180.dp)
+                        .align(Alignment.CenterHorizontally)
+                )
+                OutlinedCustomButton(
+                    modifier = Modifier.width(180.dp),
+                    text = R.string.play_again,
+                    color = Color(0xFFF44336),
+                    onClick = { restartGame() })
+            }
+        }
+}
+
 
 @Composable
 fun PauseDialog(

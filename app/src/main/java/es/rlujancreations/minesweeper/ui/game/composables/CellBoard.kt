@@ -126,7 +126,7 @@ sealed class CellIcon(
     @StringRes val description: Int? = null
 ) {
     object Empty : CellIcon()
-    object Mine : CellIcon(icon = R.drawable.mine, description = R.string.mine)
+    object Mine : CellIcon(icon = R.drawable.ic_mine, description = R.string.mine)
     object One : CellIcon(icon = R.drawable.digit_one, description = R.string.onemine)
     object Two : CellIcon(icon = R.drawable.digit_two, description = R.string.twomines)
     object Three : CellIcon(icon = R.drawable.digit_three, description = R.string.threemines)
