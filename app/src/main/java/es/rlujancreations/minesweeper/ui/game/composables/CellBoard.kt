@@ -20,8 +20,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import es.rlujancreations.minesweeper.R
-import es.rlujancreations.minesweeper.data.Cell
-import es.rlujancreations.minesweeper.data.CellStatus
+import es.rlujancreations.minesweeper.domain.model.Cell
+import es.rlujancreations.minesweeper.domain.model.CellStatus
 import es.rlujancreations.minesweeper.ui.theme.BoardBackground
 
 /**

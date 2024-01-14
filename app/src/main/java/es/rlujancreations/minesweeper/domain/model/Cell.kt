@@ -1,4 +1,4 @@
-package es.rlujancreations.minesweeper.data
+package es.rlujancreations.minesweeper.domain.model
 
 /**
  * Created by Raúl L.C. on 3/1/24.

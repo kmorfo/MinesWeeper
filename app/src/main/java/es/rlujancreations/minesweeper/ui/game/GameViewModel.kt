@@ -8,13 +8,16 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import es.rlujancreations.minesweeper.R
 import es.rlujancreations.minesweeper.data.Board
-import es.rlujancreations.minesweeper.data.Cell
-import es.rlujancreations.minesweeper.data.CellStatus
 import es.rlujancreations.minesweeper.data.Level
+import es.rlujancreations.minesweeper.domain.DatabaseService
+import es.rlujancreations.minesweeper.domain.model.Cell
+import es.rlujancreations.minesweeper.domain.model.CellStatus
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,7 +25,10 @@ import javax.inject.Inject
  * Created by Raúl L.C. on 3/1/24.
  */
 @HiltViewModel
-class GameViewModel @Inject constructor(val gameBoard: Board) : ViewModel() {
+class GameViewModel @Inject constructor(
+    val gameBoard: Board,
+    private val databaseServiceImpl: DatabaseService
+) : ViewModel() {
     private var _gameStatus = MutableStateFlow<GameStatus>(GameStatus.Running)
     val gameStatus: StateFlow<GameStatus> = _gameStatus
 
@@ -39,10 +45,11 @@ class GameViewModel @Inject constructor(val gameBoard: Board) : ViewModel() {
 
     private var _cellsWithMines: MutableList<Cell> = mutableListOf()
     private var _cellsMarkedByUser: MutableSet<Cell> = mutableSetOf()
-
+    private lateinit var _bestTime: String
 
     fun createNewGame(newLevel: Level) {
         level = newLevel
+        loadRecords(level = level)
         initGame(level)
     }
 
@@ -113,7 +120,6 @@ class GameViewModel @Inject constructor(val gameBoard: Board) : ViewModel() {
         //TODO check game status
         if (cell.mines == -1) {
             _gameStatus.value = GameStatus.Losed
-            Log.d("TEST", "Game lost")
             cell.status = CellStatus.Discovered
             return
         }
@@ -133,7 +139,10 @@ class GameViewModel @Inject constructor(val gameBoard: Board) : ViewModel() {
         _cellsMarkedByUser.map { cell ->
             if (cell.mines == -1) minesMarkedCorrecty++
         }
-        if (minesMarkedCorrecty == level.mines) _gameStatus.value = GameStatus.Winned
+        if (minesMarkedCorrecty == level.mines) {
+            if (timeCounter.value < _bestTime.toInt()) saveRecord(timeCounter.value.toString())
+            _gameStatus.value = GameStatus.Winned
+        }
     }
 
     private fun showCells(touched: Cell) {
@@ -147,6 +156,20 @@ class GameViewModel @Inject constructor(val gameBoard: Board) : ViewModel() {
                     onClick(cell = _cells.value[tempX][tempY])
                 }
             }
+    }
+
+    private fun saveRecord(time: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            databaseServiceImpl.saveRecordLevel(time = time, level = level)
+        }
+    }
+
+    private fun loadRecords(level: Level) {
+        viewModelScope.launch {
+            _bestTime = async {
+                databaseServiceImpl.getRecordByLevel(level = level).first()
+            }.await()
+        }
     }
 }
 

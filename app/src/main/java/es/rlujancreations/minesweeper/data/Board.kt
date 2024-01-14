@@ -59,8 +59,6 @@ class Board @Inject constructor() {
     }
 
     fun getMines(): Int = level.mines
-
-
 }
 
 sealed class Level(val rows: Int, val columns: Int, val mines: Int) {

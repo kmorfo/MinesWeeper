@@ -42,8 +42,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import es.rlujancreations.minesweeper.R
-import es.rlujancreations.minesweeper.data.Cell
 import es.rlujancreations.minesweeper.data.Level
+import es.rlujancreations.minesweeper.domain.model.Cell
 import es.rlujancreations.minesweeper.ui.composables.OutlinedCustomButton
 import es.rlujancreations.minesweeper.ui.composables.TextButtonDialog
 import es.rlujancreations.minesweeper.ui.game.composables.CellBoard

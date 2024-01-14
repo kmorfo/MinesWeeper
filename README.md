@@ -9,8 +9,8 @@ This is my version of the classic game minesweeper developed in kotlin
 - [ X ] End of game **status**
 - [ X ] Dialog Status End of Game
 - [ X ] Toast for alerts. Only when the user has no more mines
-- [ ] Animations
-- [ ] Persistence for save records
+- [ X ] Animations. Only in Dialogs
+- [ X ] Persistence for save records
 - [ ] Dialog records
 
 # Screenshots
