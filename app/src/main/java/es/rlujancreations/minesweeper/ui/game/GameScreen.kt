@@ -1,6 +1,9 @@
 package es.rlujancreations.minesweeper.ui.game
 
 import android.widget.Toast
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -34,7 +37,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -104,7 +106,11 @@ fun ResultDialog(
     restartGame: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    if (gameStatus == GameStatus.Winned || gameStatus == GameStatus.Losed)
+    AnimatedVisibility(
+        visible = gameStatus == GameStatus.Winned || gameStatus == GameStatus.Losed,
+        enter = scaleIn(),
+        exit = scaleOut()
+    ) {
         Dialog(onDismissRequest = { onDismiss() }) {
             OutlinedCard(
                 modifier = modifier,
@@ -136,6 +142,7 @@ fun ResultDialog(
                     onClick = { restartGame() })
             }
         }
+    }
 }
 
 
@@ -147,35 +154,39 @@ fun PauseDialog(
     restartGame: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    if (gameStatus == GameStatus.Paused) Dialog(onDismissRequest = { onDismiss() }) {
-        OutlinedCard(
-            modifier = modifier,
-            colors = CardDefaults.cardColors(containerColor = DarkBlue),
-            border = BorderStroke(1.dp, Color.White)
-        ) {
-            Text(
-                text = stringResource(id = gameStatus.description),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp),
-                textAlign = TextAlign.Center,
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-                fontSize = 22.sp
-            )
-            Box(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .height(1.dp)
-                    .background(Color.White)
-            ) {}
-            TextButtonDialog(stringResource(id = R.string.resume), onClick = { onDismiss() })
-            TextButtonDialog(
-                stringResource(id = R.string.restart_game),
-                onClick = { restartGame() })
-            TextButtonDialog(
-                stringResource(id = R.string.return_to_main),
-                onClick = { navigateToHome() })
+    AnimatedVisibility(visible = gameStatus == GameStatus.Paused) {
+        Dialog(onDismissRequest = { onDismiss() }) {
+            OutlinedCard(
+                modifier = modifier,
+                colors = CardDefaults.cardColors(containerColor = DarkBlue),
+                border = BorderStroke(1.dp, Color.White)
+            ) {
+                Text(
+                    text = stringResource(id = gameStatus.description),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    fontSize = 22.sp
+                )
+                Box(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .height(1.dp)
+                        .background(Color.White)
+                ) {}
+                TextButtonDialog(
+                    stringResource(id = R.string.resume),
+                    onClick = { onDismiss() })
+                TextButtonDialog(
+                    stringResource(id = R.string.restart_game),
+                    onClick = { restartGame() })
+                TextButtonDialog(
+                    stringResource(id = R.string.return_to_main),
+                    onClick = { navigateToHome() })
+            }
         }
     }
 }
