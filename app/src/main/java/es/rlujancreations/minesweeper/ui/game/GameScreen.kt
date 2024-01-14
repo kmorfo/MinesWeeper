@@ -1,5 +1,6 @@
 package es.rlujancreations.minesweeper.ui.game
 
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -28,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -188,6 +190,10 @@ fun GameBoard(
     val screenHeightDp = LocalConfiguration.current.screenHeightDp
     val cellWith = screenWidthDp / gameViewModel.level.columns
     val cellHeight = (screenHeightDp - 65) / gameViewModel.level.rows
+
+    val context = LocalContext.current
+    val msgNoMines: String = stringResource(id = R.string.no_mines)
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -208,7 +214,13 @@ fun GameBoard(
                             .width(cellWith.dp)
                             .height(cellHeight.dp),
                         onClick = { gameViewModel.onClick(it) },
-                        onLongClick = { gameViewModel.onLongClick(it) }
+                        onLongClick = {
+                            gameViewModel.onLongClick(cell = it, showInfoUser = {
+                                Toast.makeText(
+                                    context, msgNoMines, Toast.LENGTH_SHORT
+                                ).show()
+                            })
+                        }
                     )
                 }
             }

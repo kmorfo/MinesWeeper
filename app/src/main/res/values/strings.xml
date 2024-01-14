@@ -8,6 +8,8 @@
     <string name="play_again">Play new game!</string>
     <string name="result_game_image">End of the game image</string>
 
+    <string name="no_mines">There are no more mines available!</string>
+
     <string name="fourmines">There are four mines nearby</string>
     <string name="threemines">There are three mines nearby</string>
     <string name="twomines">There are two mines nearby</string>

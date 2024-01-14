@@ -8,7 +8,7 @@ This is my version of the classic game minesweeper developed in kotlin
 ## ToDo List
 - [ X ] End of game **status**
 - [ X ] Dialog Status End of Game
-- [ ] Toast for alerts
+- [ X ] Toast for alerts. Only when the user has no more mines
 - [ ] Animations
 - [ ] Persistence for save records
 - [ ] Dialog records
@@ -20,6 +20,9 @@ This is my version of the classic game minesweeper developed in kotlin
 <img src="./githubimages/game.png"
      alt="Screenshot game level easy"
      style="float: left; margin-right: 10px;" width="300px"/>
+<img src="./githubimages/wingame.png"
+alt="Screenshot game level easy"
+style="float: left; margin-right: 10px;" width="300px"/>
 <img src="./githubimages/losegame.png"
 alt="Screenshot game level easy"
 style="float: left; margin-right: 10px;" width="300px"/>

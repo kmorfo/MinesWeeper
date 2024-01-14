@@ -38,7 +38,7 @@ class GameViewModel @Inject constructor(val gameBoard: Board) : ViewModel() {
     val cells: StateFlow<Array<Array<Cell>>> = _cells
 
     private var _cellsWithMines: MutableList<Cell> = mutableListOf()
-    private var _cellsMarkedByUser: MutableList<Cell> = mutableListOf()
+    private var _cellsMarkedByUser: MutableSet<Cell> = mutableSetOf()
 
 
     fun createNewGame(newLevel: Level) {
@@ -55,6 +55,7 @@ class GameViewModel @Inject constructor(val gameBoard: Board) : ViewModel() {
         gameBoard.initialize(level)
         _remainingMines.value = gameBoard.getMines()
 
+        _cellsMarkedByUser = mutableSetOf()
         _gameStatus.value = GameStatus.Running
         initCells()
         startCounter()
@@ -85,7 +86,7 @@ class GameViewModel @Inject constructor(val gameBoard: Board) : ViewModel() {
     }
 
     fun changePauseStatus() {
-        if(_gameStatus.value== GameStatus.Losed || _gameStatus.value== GameStatus.Winned){
+        if (_gameStatus.value == GameStatus.Losed || _gameStatus.value == GameStatus.Winned) {
             restartGame()
             return
         }
@@ -94,7 +95,7 @@ class GameViewModel @Inject constructor(val gameBoard: Board) : ViewModel() {
         if (_gameStatus.value == GameStatus.Running) startCounter()
     }
 
-    fun onLongClick(cell: Cell) {
+    fun onLongClick(cell: Cell, showInfoUser: () -> Unit) {
         if (cell.status == CellStatus.Marked) {
             _remainingMines.value++
             cell.status = CellStatus.Untouched
@@ -104,10 +105,8 @@ class GameViewModel @Inject constructor(val gameBoard: Board) : ViewModel() {
             cell.status = CellStatus.Marked
             _cellsMarkedByUser.add(cell)
             checkIfGameWin()
-        } else {
-            //TODO Is necessary notify user because there are no mines available
-            Log.d("TEST", "No mines available")
-        }
+        } else showInfoUser()
+
     }
 
     fun onClick(cell: Cell) {
