@@ -21,8 +21,8 @@ class HomeViewModel @Inject constructor(
 ) :
     ViewModel() {
 
-    private var _recordsState = MutableStateFlow<Array<String>>(arrayOf("999", "999", "999"))
-    val records: StateFlow<Array<String>> = _recordsState
+    private var _recordsState = MutableStateFlow(RecordState())
+    val recordsState: StateFlow<RecordState> = _recordsState
 
     init {
         loadRecords(level = Level.Easy)
@@ -35,14 +35,18 @@ class HomeViewModel @Inject constructor(
             val record = async {
                 databaseServiceImpl.getRecordByLevel(level = level).first()
             }.await()
-            val index = when (level) {
-                Level.Easy -> 0
-                Level.Hard -> 1
-                Level.Medium -> 2
+            _recordsState.value =  when (level) {
+                Level.Easy -> _recordsState.value.copy(easy = record)
+                Level.Medium -> _recordsState.value.copy(medium = record)
+                Level.Hard -> _recordsState.value.copy(hard = record)
             }
-            _recordsState.value[index] = record
         }
     }
 }
 
+data class RecordState(
+    val easy: String = "9999",
+    val medium: String = "9999",
+    val hard: String = "9999",
+)
 

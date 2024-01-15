@@ -20,6 +20,7 @@ val CounterFontColor =Color(0xFFF50E02)
 
 val HeaderBackground =Color(0xFFB3B1B1)
 val BoardBackground =Color(0xFFC6C6C6)
+val RecordsBoard = Color(0x66C6C6C6)
 
 
 

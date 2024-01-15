@@ -11,7 +11,8 @@ This is my version of the classic game minesweeper developed in kotlin
 - [ X ] Toast for alerts. Only when the user has no more mines
 - [ X ] Animations. Only in Dialogs
 - [ X ] Persistence for save records
-- [ ] Dialog records
+- [ X ] Show records on HomeScreen
+- [ X ] Board Test Created
 
 # Screenshots
 <img src="./githubimages/home.png"

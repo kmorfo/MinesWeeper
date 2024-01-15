@@ -4,6 +4,7 @@
     <string name="btn_play_easy">Easy</string>
     <string name="btn_play_medium">Medium</string>
     <string name="btn_play_hard">Hard</string>
+    <string name="best_times">Best times</string>
 
     <string name="play_again">Play new game!</string>
     <string name="result_game_image">End of the game image</string>
