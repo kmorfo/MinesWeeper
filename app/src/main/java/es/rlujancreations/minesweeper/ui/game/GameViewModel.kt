@@ -1,6 +1,5 @@
 package es.rlujancreations.minesweeper.ui.game
 
-import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
@@ -17,6 +16,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,20 +29,11 @@ class GameViewModel @Inject constructor(
     val gameBoard: Board,
     private val databaseServiceImpl: DatabaseService
 ) : ViewModel() {
-    private var _gameStatus = MutableStateFlow<GameStatus>(GameStatus.Running)
-    val gameStatus: StateFlow<GameStatus> = _gameStatus
 
-    private var _timeCounter = MutableStateFlow<Int>(0)
-    val timeCounter: StateFlow<Int> = _timeCounter
-
-    private var _remainingMines = MutableStateFlow<Int>(0)
-    val remainingMines: StateFlow<Int> = _remainingMines
+    private val _uiState = MutableStateFlow(GameUiState())
+    val uiState: StateFlow<GameUiState> = _uiState.asStateFlow()
 
     var level: Level = Level.Easy
-
-    private var _cells = MutableStateFlow<Array<Array<Cell>>>(emptyArray())
-    val cells: StateFlow<Array<Array<Cell>>> = _cells
-
     private var _cellsWithMines: MutableList<Cell> = mutableListOf()
     private var _cellsMarkedByUser: MutableSet<Cell> = mutableSetOf()
     private lateinit var _bestTime: String
@@ -55,15 +46,17 @@ class GameViewModel @Inject constructor(
 
     fun restartGame() {
         initGame(level)
-        _timeCounter.value = 0
+        _uiState.value = uiState.value.copy(timeCounter = 0)
     }
 
     private fun initGame(level: Level) {
         gameBoard.initialize(level)
-        _remainingMines.value = gameBoard.getMines()
 
+        _uiState.value = uiState.value.copy(
+            remainingMines = gameBoard.getMines(),
+            gameStatus = GameStatus.Running
+        )
         _cellsMarkedByUser = mutableSetOf()
-        _gameStatus.value = GameStatus.Running
         initCells()
         startCounter()
     }
@@ -78,37 +71,40 @@ class GameViewModel @Inject constructor(
                 Cell(x = row, y = column, mines = mines, status = CellStatus.Untouched)
             }
         }
-
-        _cells.value = updatedCells
+        _uiState.value = uiState.value.copy(cells = updatedCells)
     }
 
 
     private fun startCounter() {
         viewModelScope.launch(Dispatchers.Main) {
-            while (_gameStatus.value == GameStatus.Running) {
-                _timeCounter.value++
+            while (_uiState.value.gameStatus == GameStatus.Running) {
+                _uiState.value = uiState.value.copy(timeCounter = uiState.value.timeCounter.plus(1))
                 delay(1000)
             }
         }
     }
 
     fun changePauseStatus() {
-        if (_gameStatus.value == GameStatus.Losed || _gameStatus.value == GameStatus.Winned) {
+        if (_uiState.value.gameStatus == GameStatus.Losed || uiState.value.gameStatus == GameStatus.Winned) {
             restartGame()
             return
         }
-        _gameStatus.value =
-            if (_gameStatus.value == GameStatus.Running) GameStatus.Paused else GameStatus.Running
-        if (_gameStatus.value == GameStatus.Running) startCounter()
+        _uiState.value = uiState.value.copy(
+            gameStatus =
+            if (_uiState.value.gameStatus == GameStatus.Running) GameStatus.Paused else GameStatus.Running
+        )
+        if (_uiState.value.gameStatus == GameStatus.Running) startCounter()
     }
 
     fun onLongClick(cell: Cell, showInfoUser: () -> Unit) {
         if (cell.status == CellStatus.Marked) {
-            _remainingMines.value++
+            _uiState.value =
+                uiState.value.copy(remainingMines = uiState.value.remainingMines.plus(1))
             cell.status = CellStatus.Untouched
             _cellsMarkedByUser.remove(cell)
-        } else if (remainingMines.value > 0) {
-            _remainingMines.value--
+        } else if (_uiState.value.remainingMines > 0) {
+            _uiState.value =
+                uiState.value.copy(remainingMines = uiState.value.remainingMines.minus(1))
             cell.status = CellStatus.Marked
             _cellsMarkedByUser.add(cell)
             checkIfGameWin()
@@ -119,7 +115,7 @@ class GameViewModel @Inject constructor(
     fun onClick(cell: Cell) {
         //TODO check game status
         if (cell.mines == -1) {
-            _gameStatus.value = GameStatus.Losed
+            _uiState.value = uiState.value.copy(gameStatus = GameStatus.Losed)
             cell.status = CellStatus.Discovered
             return
         }
@@ -136,12 +132,10 @@ class GameViewModel @Inject constructor(
 
     private fun checkIfGameWin() {
         var minesMarkedCorrecty: Int = 0
-        _cellsMarkedByUser.map { cell ->
-            if (cell.mines == -1) minesMarkedCorrecty++
-        }
+        _cellsMarkedByUser.map { cell -> if (cell.mines == -1) minesMarkedCorrecty++ }
         if (minesMarkedCorrecty == level.mines) {
-            if (timeCounter.value < _bestTime.toInt()) saveRecord(timeCounter.value.toString())
-            _gameStatus.value = GameStatus.Winned
+            if (_uiState.value.timeCounter < _bestTime.toInt()) saveRecord(_uiState.value.timeCounter.toString())
+            _uiState.value = uiState.value.copy(gameStatus = GameStatus.Winned)
         }
     }
 
@@ -152,8 +146,8 @@ class GameViewModel @Inject constructor(
         for (tempX in cellX - 1..cellX + 1)
             for (tempY in cellY - 1..cellY + 1) {
                 if (tempX < 0 || tempX >= level.rows || tempY < 0 || tempY >= level.columns) continue
-                if (_cells.value[tempX][tempY].mines != -1 && _cells.value[tempX][tempY].status == CellStatus.Untouched) {
-                    onClick(cell = _cells.value[tempX][tempY])
+                if (uiState.value.cells[tempX][tempY].mines != -1 && uiState.value.cells[tempX][tempY].status == CellStatus.Untouched) {
+                    onClick(cell = uiState.value.cells[tempX][tempY])
                 }
             }
     }
@@ -173,6 +167,12 @@ class GameViewModel @Inject constructor(
     }
 }
 
+data class GameUiState(
+    val gameStatus: GameStatus = GameStatus.Running,
+    val timeCounter: Int = 0,
+    val remainingMines: Int = 0,
+    val cells: Array<Array<Cell>> = emptyArray()
+)
 
 sealed class GameStatus(
     @DrawableRes val icon: Int,

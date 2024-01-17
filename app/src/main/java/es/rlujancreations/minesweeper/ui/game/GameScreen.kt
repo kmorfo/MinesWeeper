@@ -66,21 +66,16 @@ fun GameScreen(
         gameViewModel.createNewGame(level)
     }
 
-    val cells: Array<Array<Cell>> by gameViewModel.cells.collectAsState(emptyArray())
-
-    val timeCounter: Int by gameViewModel.timeCounter.collectAsState()
-    val remainingMines: Int by gameViewModel.remainingMines.collectAsState()
-    val gameStatus: GameStatus by gameViewModel.gameStatus.collectAsState()
-
+    val gameUiState by gameViewModel.uiState.collectAsState()
 
     PauseDialog(
-        gameStatus = gameStatus,
+        gameStatus = gameUiState.gameStatus,
         onDismiss = { gameViewModel.changePauseStatus() },
         navigateToHome = { navigateToHome() },
         restartGame = { gameViewModel.restartGame() }
     )
     ResultDialog(
-        gameStatus = gameStatus,
+        gameStatus = gameUiState.gameStatus,
         onDismiss = { gameViewModel.changePauseStatus() },
         restartGame = { gameViewModel.restartGame() }
     )
@@ -88,13 +83,13 @@ fun GameScreen(
 
     Column(modifier = Modifier.fillMaxSize()) {
         GameHeader(
-            gameStatus = gameStatus,
-            timeCounter = timeCounter,
-            remainingMines = remainingMines,
+            gameStatus = gameUiState.gameStatus,
+            timeCounter = gameUiState.timeCounter,
+            remainingMines = gameUiState.remainingMines,
             modifier = Modifier,
             onIconClick = { gameViewModel.changePauseStatus() })
 
-        GameBoard(gameViewModel = gameViewModel, cells = cells)
+        GameBoard(gameViewModel = gameViewModel, cells = gameUiState.cells)
     }
 }
 
