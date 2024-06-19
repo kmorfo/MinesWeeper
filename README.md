@@ -2,28 +2,43 @@
   <a href="https://rlujancreations.es/" target="blank"><img src="./githubimages/logo.png" width="300px" alt="RLujanCreations Logo" /></a>
 </p>
 
+Aquí tienes el código de markdown con una presentación más atractiva, incluyendo la descripción de las características principales en inglés:
+
+---
+
 # MinesWeeper
-This is my version of the classic game minesweeper developed in kotlin
+This is my version of the classic game Minesweeper, developed in Kotlin.
+
+## Main Features and Technologies Used
+
+- **Jetpack Compose**: The user interface is developed using this modern Android UI toolkit, making it easy to create flexible and dynamic interfaces.
+- **MVVM**: Implements the Model-View-ViewModel pattern to separate presentation logic from business logic and data, improving testability and code organization.
+- **Dependency Injection - Dagger-Hilt**: Used to simplify dependency management, allowing for better scalability and unit testing.
+- **Unit Test**: User interface tests to ensure the app behaves correctly and provides a smooth user experience.
+- **Flows**: FILL WITH DESCRIPTION
+
+---
+
+## Screenshots
+
+| ![Home Screen](./githubimages/home.png) | ![Game Screen](./githubimages/game.png) |
+|:---------------------------------------:|:--------------------------------------:|
+|                 **Home**                |                **Game**                |
+
+| ![Game Win Screen](./githubimages/wingame.png) | ![Game Loss Screen](./githubimages/losegame.png) |
+|:----------------------------------------------:|:------------------------------------------------:|
+|                 **Game Win**                   |                 **Game Loss**                    |
+
+---
 
 ## ToDo List
-- [ X ] End of game **status**
-- [ X ] Dialog Status End of Game
-- [ X ] Toast for alerts. Only when the user has no more mines
-- [ X ] Animations. Only in Dialogs
-- [ X ] Persistence for save records
-- [ X ] Show records on HomeScreen
-- [ X ] Board Test Created
 
-# Screenshots
-<img src="./githubimages/home.png"
-     alt="HomeScreen"
-     style="float: left; margin-right: 10px;" width="300px"/>
-<img src="./githubimages/game.png"
-     alt="Screenshot game level easy"
-     style="float: left; margin-right: 10px;" width="300px"/>
-<img src="./githubimages/wingame.png"
-alt="Screenshot game level easy"
-style="float: left; margin-right: 10px;" width="300px"/>
-<img src="./githubimages/losegame.png"
-alt="Screenshot game level easy"
-style="float: left; margin-right: 10px;" width="300px"/>
+- [X] End of game **status**
+- [X] Dialog Status End of Game
+- [X] Toast for alerts, only when the user has no more mines
+- [X] Animations, only in dialogs
+- [X] Persistence for saving records
+- [X] Show records on HomeScreen
+- [X] Board test created
+
+---
