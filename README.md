@@ -2,8 +2,6 @@
   <a href="https://rlujancreations.es/" target="blank"><img src="./githubimages/logo.png" width="300px" alt="RLujanCreations Logo" /></a>
 </p>
 
-Aquí tienes el código de markdown con una presentación más atractiva, incluyendo la descripción de las características principales en inglés:
-
 ---
 
 # MinesWeeper
@@ -15,7 +13,7 @@ This is my version of the classic game Minesweeper, developed in Kotlin.
 - **MVVM**: Implements the Model-View-ViewModel pattern to separate presentation logic from business logic and data, improving testability and code organization.
 - **Dependency Injection - Dagger-Hilt**: Used to simplify dependency management, allowing for better scalability and unit testing.
 - **Unit Test**: User interface tests to ensure the app behaves correctly and provides a smooth user experience.
-- **Flows**: FILL WITH DESCRIPTION
+- **Flows**: Utilized to handle asynchronous data streams, providing a clean way to manage state and data flow within the application.
 
 ---
 
