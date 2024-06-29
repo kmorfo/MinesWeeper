@@ -3,6 +3,7 @@ agp = "8.5.0"
 android-compileSdk = "34"
 android-minSdk = "24"
 android-targetSdk = "34"
+android-versionCode="1"
 androidx-activityCompose = "1.9.0"
 androidx-appcompat = "1.7.0"
 androidx-constraintlayout = "2.1.4"
@@ -13,6 +14,13 @@ androidx-test-junit = "1.2.0"
 compose-plugin = "1.6.11"
 junit = "4.13.2"
 kotlin = "2.0.0"
+navigation-compose = "2.8.0-alpha02"
+androidx-lifecycle = "2.8.0"
+datastorePreferences = "1.1.1"
+ksp = "2.0.0-1.0.21"
+buildconfig = "5.3.5"
+koin = "3.6.0-Beta4"
+koinCompose = "1.2.0-Beta4"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -25,6 +33,17 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 androidx-material = { group = "com.google.android.material", name = "material", version.ref = "androidx-material" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+androidx-navigation-compose = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref = "navigation-compose" }
+androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-viewmodel-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
+androidx-datastore = { module = "androidx.datastore:datastore", version.ref = "datastorePreferences" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+koin-bom = { group = "io.insert-koin", name = "koin-bom", version.ref = "koin" }
+koin-android = { group = "io.insert-koin", name = "koin-android" }
+koin-core = { group = "io.insert-koin", name = "koin-core" }
+koin-compose = { group = "io.insert-koin", name = "koin-compose" }
+koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel", version.ref = "koinCompose"}
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -32,3 +51,4 @@ androidLibrary = { id = "com.android.library", version.ref = "agp" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

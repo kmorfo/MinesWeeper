@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.ksp)
 }
 
 kotlin {
@@ -33,6 +34,7 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.koin.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -41,8 +43,23 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+            implementation(libs.androidx.navigation.compose)
+            api(libs.androidx.lifecycle.viewmodel)
+            implementation(libs.androidx.lifecycle.viewmodel.compose)
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+            //DataStore
+            implementation(libs.androidx.datastore)
+            implementation(libs.androidx.datastore.preferences)
+        }
+        iosMain.dependencies {
+
         }
     }
+    // Added to prevent a build error when using Android Studio "Make" button
+    task("testClasses")
 }
 
 android {
@@ -57,8 +74,8 @@ android {
         applicationId = "es.rlujancreations.minesweeper"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = libs.versions.android.versionCode.get().toInt()
+        versionName = "1.0.0"
     }
     packaging {
         resources {
@@ -81,4 +98,11 @@ android {
         debugImplementation(compose.uiTooling)
     }
 }
+
+tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().configureEach {
+    if (name != "kspCommonMainKotlinMetadata") {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
+}
+
 
