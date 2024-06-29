@@ -8,7 +8,7 @@
 This is my version of the classic game Minesweeper, developed in Kotlin.
 
 ## Main Features and Technologies Used
-
+- **Kotlin 2.0**: It is used to take advantage of its modern features and performance improvements, making it easier to develop a robust and efficient application.
 - **Jetpack Compose**: The user interface is developed using this modern Android UI toolkit, making it easy to create flexible and dynamic interfaces.
 - **MVVM**: Implements the Model-View-ViewModel pattern to separate presentation logic from business logic and data, improving testability and code organization.
 - **Dependency Injection - Dagger-Hilt**: Used to simplify dependency management, allowing for better scalability and unit testing.
