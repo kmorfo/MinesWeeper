@@ -27,12 +27,13 @@ import minesweeper.composeapp.generated.resources.ic_sad_mine
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 /**
  * Created by Raúl L.C. on 3/1/24.
  */
 class GameViewModel(private val gameBoard: Board ) : ViewModel(), KoinComponent {
-//    private val databaseServiceImpl: DatabaseService
+    private val databaseServiceImpl: DatabaseService by inject()
 
     private val _uiState = MutableStateFlow(GameUiState())
     val uiState: StateFlow<GameUiState> = _uiState.asStateFlow()
@@ -157,15 +158,15 @@ class GameViewModel(private val gameBoard: Board ) : ViewModel(), KoinComponent 
 
     private fun saveRecord(time: String) {
         viewModelScope.launch(Dispatchers.IO) {
-//            databaseServiceImpl.saveRecordLevel(time = time, level = level)
+            databaseServiceImpl.saveRecordLevel(time = time, level = level)
         }
     }
 
     private fun loadRecords(level: Level) {
         viewModelScope.launch {
-//            _bestTime = async {
-//                databaseServiceImpl.getRecordByLevel(level = level).first()
-//            }.await()
+            _bestTime = async {
+                databaseServiceImpl.getRecordByLevel(level = level).first()
+            }.await()
         }
     }
 }
