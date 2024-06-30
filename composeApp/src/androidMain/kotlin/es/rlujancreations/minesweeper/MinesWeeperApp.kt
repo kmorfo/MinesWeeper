@@ -8,9 +8,11 @@ import org.koin.core.logger.Level
 /**
  * Created by Raúl L.C. on 29/6/24.
  */
-class MinesWeeperApp:Application() {
+class MinesWeeperApp : Application() {
+
     override fun onCreate() {
         super.onCreate()
+
         initKoin {
             androidLogger(Level.DEBUG)
             androidContext(this@MinesWeeperApp)

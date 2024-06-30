@@ -53,7 +53,7 @@ kotlin {
             implementation(libs.androidx.datastore.preferences)
         }
         iosMain.dependencies {
-
+            implementation(libs.kotlinx.coroutines.core)
         }
     }
     // Added to prevent a build error when using Android Studio "Make" button
