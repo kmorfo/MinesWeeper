@@ -41,6 +41,7 @@ import es.rlujancreations.minesweeper.domain.model.Cell
 import es.rlujancreations.minesweeper.ui.composables.OutlinedCustomButton
 import es.rlujancreations.minesweeper.ui.composables.TextButtonDialog
 import es.rlujancreations.minesweeper.ui.core.getScreenDimensions
+import es.rlujancreations.minesweeper.ui.core.showToast
 import es.rlujancreations.minesweeper.ui.game.composables.CellBoard
 import es.rlujancreations.minesweeper.ui.game.composables.CounterBoard
 import es.rlujancreations.minesweeper.ui.theme.BoardBackground
@@ -112,7 +113,7 @@ fun ResultDialog(
                 modifier = modifier,
                 border = BorderStroke(1.dp, CounterFontColor),
 
-            ) {
+                ) {
                 Text(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -227,12 +228,10 @@ fun GameBoard(
                         onClick = { gameViewModel.onClick(it) },
                         onLongClick = {
                             //TODO: Info
-                            gameViewModel.onLongClick(cell = it, showInfoUser = {
-//                                Toast.makeText(
-//                                    context, msgNoMines, Toast.LENGTH_SHORT
-//                                ).show()
-                            }
-                    )
+                            gameViewModel.onLongClick(
+                                cell = it,
+                                showInfoUser = { showToast(msgNoMines) }
+                            )
                         }
                     )
                 }
