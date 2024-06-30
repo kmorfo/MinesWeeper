@@ -9,12 +9,10 @@ class IOSScreenDimensions : ScreenDimensions {
     @OptIn(ExperimentalForeignApi::class)
     override val screenWidthDp: Int
         get() = (UIScreen.mainScreen.bounds.useContents { size.width } ).toInt()
-//        get() = (UIScreen.mainScreen.bounds.useContents { size.width } * UIScreen.mainScreen.scale).toInt()
 
     @OptIn(ExperimentalForeignApi::class)
     override val screenHeightDp: Int
         get() = (UIScreen.mainScreen.bounds.useContents { size.height } -65 ).toInt()
-//        get() = (UIScreen.mainScreen.bounds.useContents { size.height } * UIScreen.mainScreen.scale).toInt()
 }
 
 actual fun getScreenDimensions(): ScreenDimensions {

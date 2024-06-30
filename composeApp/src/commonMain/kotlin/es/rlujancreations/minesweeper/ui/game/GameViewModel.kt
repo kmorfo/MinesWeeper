@@ -32,7 +32,6 @@ import org.koin.core.component.KoinComponent
  * Created by Raúl L.C. on 3/1/24.
  */
 class GameViewModel(private val gameBoard: Board ) : ViewModel(), KoinComponent {
-//    private val gameBoard: Board = Board()
 //    private val databaseServiceImpl: DatabaseService
 
     private val _uiState = MutableStateFlow(GameUiState())

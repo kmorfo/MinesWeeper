@@ -23,7 +23,6 @@ val viewModelsModule = module {
     single { Board() }
 
     viewModelOf(::HomeViewModel)
-//    viewModelOf(::GameViewModel)
     viewModel { GameViewModel(get()) }
 
 }

@@ -110,11 +110,12 @@ fun ResultDialog(
         Dialog(onDismissRequest = { onDismiss() }) {
             OutlinedCard(
                 modifier = modifier,
-                border = BorderStroke(1.dp, CounterFontColor)
+                border = BorderStroke(1.dp, CounterFontColor),
+
             ) {
                 Text(
                     modifier = Modifier
-                        .width(180.dp)
+                        .fillMaxWidth()
                         .padding(vertical = 8.dp),
                     text = stringResource(gameStatus.description),
                     color = if (gameStatus == GameStatus.Losed) CounterFontColor else DarkBlue,
@@ -132,10 +133,11 @@ fun ResultDialog(
                         .align(Alignment.CenterHorizontally)
                 )
                 OutlinedCustomButton(
-                    modifier = Modifier.width(180.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     text = stringResource(Res.string.play_again),
                     color = Color(0xFFF44336),
                     onClick = { restartGame() })
+                Spacer(modifier = Modifier.width(198.dp).height(16.dp))
             }
         }
     }
@@ -199,9 +201,6 @@ fun GameBoard(
     val cellWith = screenWidthDp / gameViewModel.level.columns
     val cellHeight = (screenHeightDp - 65) / gameViewModel.level.rows
 
-    println("Screen Width $screenWidthDp")
-    println("Screen Height $screenHeightDp")
-
 //    val context = LocalContext.current
     val msgNoMines: String = stringResource(Res.string.no_mines)
 
@@ -228,12 +227,12 @@ fun GameBoard(
                         onClick = { gameViewModel.onClick(it) },
                         onLongClick = {
                             //TODO: Info
-//                            gameViewModel.onLongClick(cell = it, showInfoUser = {
+                            gameViewModel.onLongClick(cell = it, showInfoUser = {
 //                                Toast.makeText(
 //                                    context, msgNoMines, Toast.LENGTH_SHORT
 //                                ).show()
-//                            }
-//                    )
+                            }
+                    )
                         }
                     )
                 }
