@@ -33,7 +33,13 @@ import es.rlujancreations.minesweeper.ui.theme.DarkBlue
 import es.rlujancreations.minesweeper.ui.theme.LightBlue
 import es.rlujancreations.minesweeper.ui.theme.RecordsBoard
 import minesweeper.composeapp.generated.resources.Res
-import minesweeper.composeapp.generated.resources.*
+import minesweeper.composeapp.generated.resources.best_times
+import minesweeper.composeapp.generated.resources.btn_play_easy
+import minesweeper.composeapp.generated.resources.btn_play_hard
+import minesweeper.composeapp.generated.resources.btn_play_medium
+import minesweeper.composeapp.generated.resources.help
+import minesweeper.composeapp.generated.resources.ic_help
+import minesweeper.composeapp.generated.resources.ic_mineseeper
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
@@ -121,6 +127,7 @@ fun HomeScreen(
         Spacer(modifier = Modifier.weight(0.5f))
     }
 }
+
 
 @Composable
 private fun RecordText(text: String, color: Color, modifier: Modifier = Modifier) {

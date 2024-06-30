@@ -15,12 +15,7 @@ import org.koin.compose.KoinContext
 fun App() {
     KoinContext {
         MinesWeeperTheme {
-            Surface(
-                modifier = Modifier.fillMaxSize(),
-                color = MaterialTheme.colorScheme.background
-            ) {
                 Navigation()
-            }
         }
     }
 }

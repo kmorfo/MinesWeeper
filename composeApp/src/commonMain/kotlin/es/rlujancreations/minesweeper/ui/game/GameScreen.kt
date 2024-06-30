@@ -21,12 +21,17 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedCard
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,14 +46,19 @@ import es.rlujancreations.minesweeper.domain.model.Cell
 import es.rlujancreations.minesweeper.ui.composables.OutlinedCustomButton
 import es.rlujancreations.minesweeper.ui.composables.TextButtonDialog
 import es.rlujancreations.minesweeper.ui.core.getScreenDimensions
-import es.rlujancreations.minesweeper.ui.core.showToast
 import es.rlujancreations.minesweeper.ui.game.composables.CellBoard
 import es.rlujancreations.minesweeper.ui.game.composables.CounterBoard
 import es.rlujancreations.minesweeper.ui.theme.BoardBackground
 import es.rlujancreations.minesweeper.ui.theme.CounterFontColor
 import es.rlujancreations.minesweeper.ui.theme.DarkBlue
 import es.rlujancreations.minesweeper.ui.theme.HeaderBackground
-import minesweeper.composeapp.generated.resources.*
+import kotlinx.coroutines.launch
+import minesweeper.composeapp.generated.resources.Res
+import minesweeper.composeapp.generated.resources.no_mines
+import minesweeper.composeapp.generated.resources.play_again
+import minesweeper.composeapp.generated.resources.restart_game
+import minesweeper.composeapp.generated.resources.resume
+import minesweeper.composeapp.generated.resources.return_to_main
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
@@ -69,6 +79,7 @@ fun GameScreen(
     }
 
     val gameUiState by gameViewModel.uiState.collectAsState()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     PauseDialog(
         gameStatus = gameUiState.gameStatus,
@@ -82,16 +93,24 @@ fun GameScreen(
         restartGame = { gameViewModel.restartGame() }
     )
 
+    Scaffold(
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Column(modifier = Modifier.fillMaxSize()) {
+            GameHeader(
+                gameStatus = gameUiState.gameStatus,
+                timeCounter = gameUiState.timeCounter,
+                remainingMines = gameUiState.remainingMines,
+                modifier = Modifier,
+                onIconClick = { gameViewModel.changePauseStatus() })
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        GameHeader(
-            gameStatus = gameUiState.gameStatus,
-            timeCounter = gameUiState.timeCounter,
-            remainingMines = gameUiState.remainingMines,
-            modifier = Modifier,
-            onIconClick = { gameViewModel.changePauseStatus() })
-
-        GameBoard(gameViewModel = gameViewModel, cells = gameUiState.cells)
+            GameBoard(
+                gameViewModel = gameViewModel,
+                cells = gameUiState.cells,
+                snackbarHostState = snackbarHostState
+            )
+        }
     }
 }
 
@@ -194,6 +213,7 @@ fun PauseDialog(
 fun GameBoard(
     gameViewModel: GameViewModel,
     cells: Array<Array<Cell>>,
+    snackbarHostState: SnackbarHostState,
     modifier: Modifier = Modifier
 ) {
     val screenDimensions = remember { getScreenDimensions() }
@@ -202,7 +222,7 @@ fun GameBoard(
     val cellWith = screenWidthDp / gameViewModel.level.columns
     val cellHeight = (screenHeightDp - 65) / gameViewModel.level.rows
 
-//    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
     val msgNoMines: String = stringResource(Res.string.no_mines)
 
     Column(
@@ -227,10 +247,16 @@ fun GameBoard(
                             .height(cellHeight.dp),
                         onClick = { gameViewModel.onClick(it) },
                         onLongClick = {
-                            //TODO: Info
                             gameViewModel.onLongClick(
                                 cell = it,
-                                showInfoUser = { showToast(msgNoMines) }
+                                showInfoUser = {
+                                    scope.launch {
+                                        snackbarHostState.showSnackbar(
+                                            message = msgNoMines,
+                                            duration = SnackbarDuration.Short
+                                        )
+                                    }
+                                }
                             )
                         }
                     )
