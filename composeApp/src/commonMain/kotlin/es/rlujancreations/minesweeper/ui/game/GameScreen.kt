@@ -199,6 +199,9 @@ fun GameBoard(
     val cellWith = screenWidthDp / gameViewModel.level.columns
     val cellHeight = (screenHeightDp - 65) / gameViewModel.level.rows
 
+    println("Screen Width $screenWidthDp")
+    println("Screen Height $screenHeightDp")
+
 //    val context = LocalContext.current
     val msgNoMines: String = stringResource(Res.string.no_mines)
 
@@ -212,7 +215,8 @@ fun GameBoard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(cellHeight.dp)
+                    .height(cellHeight.dp),
+                horizontalArrangement = Arrangement.Center
             ) {
                 for (column in cells[row].indices) {
                     val cell = cells[row][column]
