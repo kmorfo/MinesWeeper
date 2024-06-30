@@ -5,43 +5,47 @@
 ---
 
 # MinesWeeper
-This is my version of the classic game Minesweeper, developed in Kotlin.
-** Updated to Compose Multi Platform**
-This game is available in Android and IOS
 
-The original version of this project is available on the brach **Kotlin**
+This is my version of the classic game Minesweeper, developed in Kotlin.
+
+**Updated to Compose Multi Platform**: This game is now available on Android and iOS.
+
+The original version of this project is available on the branch [**Kotlin**](https://github.com/kmorfo/MinesWeeper/tree/Kotlin).
 
 ## Main Features and Technologies Used
-- **Kotlin 2.0**: It is used to take advantage of its modern features and performance improvements, making it easier to develop a robust and efficient application.
-- **Jetpack Compose**: The user interface is developed using this modern Android UI toolkit, making it easy to create flexible and dynamic interfaces.
+
+- **KMP**: Compose Multi Platform
+- **Kotlin 2.0**: Utilized for its modern features and performance improvements, making it easier to develop a robust and efficient application.
+- **Jetpack Compose**: The user interface is developed using this modern Android UI toolkit, enabling the creation of flexible and dynamic interfaces.
 - **MVVM**: Implements the Model-View-ViewModel pattern to separate presentation logic from business logic and data, improving testability and code organization.
-- **Dependency Injection - Koin ~~Dagger-Hilt~~ **: Used to simplify dependency management, allowing for better scalability and unit testing.
-- **Unit Test**: User interface tests to ensure the app behaves correctly and provides a smooth user experience.
-- **Flows**: Utilized to handle asynchronous data streams, providing a clean way to manage state and data flow within the application.
-- **DataStore Preferences**: It is used to save the best times of the user locally
+- **Dependency Injection - Koin** ~~(formerly Dagger-Hilt)~~: Simplifies dependency management, allowing for better scalability and unit testing.
+- **Unit Testing**: User interface tests ensure the app behaves correctly and provides a smooth user experience.
+- **Flows**: Handles asynchronous data streams, providing a clean way to manage state and data flow within the application.
+- **DataStore Preferences**: Used to save the user's best times locally.
 
 ---
 
 ## Screenshots
 
-| ![Home Screen](./githubimages/home.png) | ![Game Screen](./githubimages/game.png) |
-|:---------------------------------------:|:--------------------------------------:|
 |                 **Home**                |                **Game**                |
-| ![Home Screen](./githubimages/iosmenu.png) | ![Game Screen](./githubimages/iosgame.png) |
 |:---------------------------------------:|:--------------------------------------:|
-|                 **IOS Menu**                |                **IOS Game**                |
-| ![Game Win Screen](./githubimages/wingame.png) | ![Game Loss Screen](./githubimages/losegame.png) |
-|:----------------------------------------------:|:------------------------------------------------:|
-|                 **Game Win**                   |                 **Game Loss**                    |
-
+| ![Home Screen](./githubimages/home.png) | ![Game Screen](./githubimages/game.png) |
+|                 **iOS Menu**            |                **iOS Game**            |
+| ![iOS Menu](./githubimages/iosmenu.png) | ![iOS Game](./githubimages/iosgame.png) |
+|                 **Game Win**            |                 **Game Loss**          |
+| ![Game Win](./githubimages/wingame.png) | ![Game Loss](./githubimages/losegame.png) |
+|                **Both Systems**         |                                         |
+|            ![Both Systems](./githubimages/bothsystems.png)            |                                         |                                                
 ---
 
-## ToDo List
+## To-Do List
 
+- [X] App Icon on iOS and Android
+- [X] Convert to KMP
 - [X] End of game **status**
-- [X] Dialog Status End of Game
-- [X] Toast for alerts, only when the user has no more mines
-- [X] Animations, only in dialogs
+- [X] Dialog for End of Game Status
+- [X] Toast alerts when the user has no more mines
+- [X] Animations in dialogs
 - [X] Persistence for saving records
 - [X] Show records on HomeScreen
 - [X] Board test created
