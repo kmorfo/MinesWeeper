@@ -3,6 +3,7 @@ package es.rlujancreations.minesweeper
 
 import es.rlujancreations.minesweeper.data.datastore.dataStoreModule
 import es.rlujancreations.minesweeper.ui.core.AndroidScreenDimensions
+import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 /**
@@ -10,5 +11,5 @@ import org.koin.dsl.module
  */
 actual val nativeModule = module {
     single { dataStoreModule(get()) }
-    single { AndroidScreenDimensions(get()) }
+    singleOf(::AndroidScreenDimensions)
 }

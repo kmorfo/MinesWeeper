@@ -16,24 +16,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import minesweeper.composeapp.generated.resources.Res
-import minesweeper.composeapp.generated.resources.face_dizzy
-import minesweeper.composeapp.generated.resources.face_partying
-import minesweeper.composeapp.generated.resources.face_sleep
-import minesweeper.composeapp.generated.resources.face_sleeping
-import minesweeper.composeapp.generated.resources.face_smiling
-import minesweeper.composeapp.generated.resources.ic_happy_mine
-import minesweeper.composeapp.generated.resources.ic_sad_mine
-import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.StringResource
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 
 /**
  * Created by Raúl L.C. on 3/1/24.
  */
-class GameViewModel(private val gameBoard: Board ) : ViewModel(), KoinComponent {
-    private val databaseServiceImpl: DatabaseService by inject()
+class GameViewModel(
+    private val gameBoard: Board,
+    private val databaseServiceImpl: DatabaseService
+) : ViewModel(), KoinComponent {
 
     private val _uiState = MutableStateFlow(GameUiState())
     val uiState: StateFlow<GameUiState> = _uiState.asStateFlow()
