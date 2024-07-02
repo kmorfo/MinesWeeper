@@ -10,7 +10,7 @@ This is my version of the classic game Minesweeper, developed in Kotlin.
 
 **Updated to Compose Multi Platform**: This game is now available on Android and iOS.
 
-The original version of this project is available on the branch [**Kotlin**](https://github.com/kmorfo/MinesWeeper/tree/Kotlin).
+The original version of this project with the Android version is available on the branch [**Kotlin**](https://github.com/kmorfo/MinesWeeper/tree/Kotlin).
 
 ## Main Features and Technologies Used
 

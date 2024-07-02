@@ -15,7 +15,7 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -26,9 +26,9 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     sourceSets {
-        
+
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
@@ -58,6 +58,15 @@ kotlin {
     }
     // Added to prevent a build error when using Android Studio "Make" button
     task("testClasses")
+
+    //Test and improving performance
+    composeCompiler {
+        reportsDestination = file("build/outputs/compose_reports")
+        metricsDestination = file("build/outputs/compose_metrics")
+        stabilityConfigurationFile = file("/${rootDir}/stability-config.txt")
+//        I keep this option by example but does work well yet
+//        enableStrongSkippingMode = true
+    }
 }
 
 android {
