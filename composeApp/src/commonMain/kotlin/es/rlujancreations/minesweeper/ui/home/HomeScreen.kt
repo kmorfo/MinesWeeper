@@ -17,6 +17,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -57,6 +58,10 @@ fun HomeScreen(
     navigateToHelp: () -> Unit,
 ) {
     val records by homeViewModel.recordsState.collectAsState()
+
+    LaunchedEffect(true) {
+        homeViewModel.loadRecords()
+    }
 
     Column(
         modifier =

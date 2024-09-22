@@ -108,12 +108,12 @@ class GameViewModel(
         if (cell.status == CellStatus.Marked) {
             _uiState.value =
                 uiState.value.copy(remainingMines = uiState.value.remainingMines.plus(1))
-            cell.status = CellStatus.Untouched
+            updateCell(cell = cell, status = CellStatus.Untouched)
             cellsMarkedByUser.remove(cell)
         } else if (_uiState.value.remainingMines > 0) {
             _uiState.value =
                 uiState.value.copy(remainingMines = uiState.value.remainingMines.minus(1))
-            cell.status = CellStatus.Marked
+            updateCell(cell = cell, status = CellStatus.Marked)
             cellsMarkedByUser.add(cell)
             checkIfGameWin()
         } else {
@@ -124,18 +124,39 @@ class GameViewModel(
     fun onClick(cell: Cell) {
         if (cell.mines == -1) {
             _uiState.value = uiState.value.copy(gameStatus = GameStatus.Losed)
-            cell.status = CellStatus.Discovered
+            updateCell(cell = cell, status = CellStatus.Discovered)
             return
         }
+
         if (cell.mines == 0) {
-            cell.status = CellStatus.Discovered
+            updateCell(cell = cell, status = CellStatus.Discovered)
             showCells(cell)
             return
         }
         if (cell.mines > 0) {
-            cell.status = CellStatus.Discovered
+            updateCell(cell = cell, status = CellStatus.Discovered)
             return
         }
+    }
+
+    private fun updateCell(
+        cell: Cell,
+        status: CellStatus,
+    ): Array<Array<Cell>> {
+        val updatedCells =
+            uiState.value.cells.map { row ->
+                row.map { currentCell ->
+                    if (currentCell == cell) {
+                        currentCell.copy(status = status)
+                    } else {
+                        currentCell
+                    }
+                }.toTypedArray()
+            }.toTypedArray()
+
+        _uiState.value = uiState.value.copy(cells = updatedCells)
+
+        return updatedCells
     }
 
     private fun checkIfGameWin() {

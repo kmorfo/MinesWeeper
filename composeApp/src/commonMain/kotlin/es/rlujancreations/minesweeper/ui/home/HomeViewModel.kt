@@ -22,7 +22,7 @@ class HomeViewModel() : ViewModel(), KoinComponent {
     private var _recordsState = MutableStateFlow(RecordState())
     val recordsState: StateFlow<RecordState> = _recordsState
 
-    init {
+    fun loadRecords() {
         loadRecords(level = Level.Easy)
         loadRecords(level = Level.Medium)
         loadRecords(level = Level.Hard)
