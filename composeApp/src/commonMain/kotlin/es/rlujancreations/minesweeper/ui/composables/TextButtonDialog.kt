@@ -14,14 +14,18 @@ import androidx.compose.ui.unit.sp
  * Created by Raúl L.C. on 7/1/24.
  */
 @Composable
-fun TextButtonDialog(text: String, modifier: Modifier = Modifier, onClick: () -> Unit) {
+fun TextButtonDialog(
+    text: String,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+) {
     TextButton(onClick = { onClick() }, modifier = modifier) {
         Text(
             text = text,
             modifier = modifier.padding(bottom = 8.dp, start = 24.dp),
             fontSize = 22.sp,
-            fontWeight = FontWeight.Bold, color = Color.White
+            fontWeight = FontWeight.Bold,
+            color = Color.White,
         )
     }
-
 }

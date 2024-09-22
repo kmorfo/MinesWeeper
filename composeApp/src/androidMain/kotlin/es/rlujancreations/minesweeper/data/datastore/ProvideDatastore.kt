@@ -10,11 +10,10 @@ import kotlinx.coroutines.Dispatchers
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-
 fun dataStoreModule(context: Context): DataStore<Preferences> {
     return PreferenceDataStoreFactory.create(
         produceFile = { context.preferencesDataStoreFile("user.preferences_pb") },
-        scope = CoroutineScope(Dispatchers.IO)
+        scope = CoroutineScope(Dispatchers.IO),
     )
 }
 

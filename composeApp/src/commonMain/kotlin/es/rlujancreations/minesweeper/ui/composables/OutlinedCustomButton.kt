@@ -11,7 +11,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import org.jetbrains.compose.resources.StringResource
 
 /**
  * Created by Raúl L.C. on 11/1/24.
@@ -21,12 +20,13 @@ fun OutlinedCustomButton(
     text: String,
     color: Color,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     OutlinedButton(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
         colors = ButtonDefaults.buttonColors(containerColor = color),
         onClick = { onClick() },
     ) {
@@ -34,7 +34,7 @@ fun OutlinedCustomButton(
             text,
             fontWeight = FontWeight.Bold,
             color = Color.White,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
     }
 }

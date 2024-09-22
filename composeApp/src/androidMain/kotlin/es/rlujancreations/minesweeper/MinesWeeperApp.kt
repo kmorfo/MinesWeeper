@@ -9,7 +9,6 @@ import org.koin.core.logger.Level
  * Created by Raúl L.C. on 29/6/24.
  */
 class MinesWeeperApp : Application() {
-
     override fun onCreate() {
         super.onCreate()
 

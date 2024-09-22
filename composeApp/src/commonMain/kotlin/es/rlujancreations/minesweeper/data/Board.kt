@@ -18,23 +18,25 @@ class Board() {
     }
 
     private fun fillBoard() {
-        //Add mines to board
+        // Add mines to board
         for (i in 0..<level.mines) {
             var rX: Int = Random.nextInt(level.rows)
             var rY: Int = Random.nextInt(level.columns)
 
-            //Check if the matrix has already mine
+            // Check if the matrix has already mine
             while (matrix[rX][rY] == -1) {
                 rX = Random.nextInt(level.rows)
                 rY = Random.nextInt(level.columns)
             }
-            //Add mine to the current cell
+            // Add mine to the current cell
             matrix[rX][rY] = -1
 
-            //add number of mines in the nearby cells
+            // add number of mines in the nearby cells
             for (tempX in rX - 1..rX + 1)
                 for (tempY in rY - 1..rY + 1) {
-                    if (tempX < 0 || tempX >= level.rows || tempY < 0 || tempY >= level.columns) continue
+                    if (tempX < 0 || tempX >= level.rows || tempY < 0 || tempY >= level.columns) {
+                        continue
+                    }
                     if (matrix[tempX][tempY] != -1) matrix[tempX][tempY]++
                 }
         }
@@ -47,7 +49,10 @@ class Board() {
         }
     }
 
-    fun getCell(x: Int, y: Int): Int {
+    fun getCell(
+        x: Int,
+        y: Int,
+    ): Int {
         return if (x in matrix.indices && y in 0 until matrix[0].size) {
             matrix[x][y]
         } else {
@@ -62,6 +67,8 @@ class Board() {
 
 sealed class Level(val rows: Int, val columns: Int, val mines: Int) {
     object Easy : Level(rows = 8, columns = 8, mines = 10)
+
     object Medium : Level(rows = 12, columns = 12, mines = 30)
+
     object Hard : Level(rows = 16, columns = 16, mines = 60)
 }

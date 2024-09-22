@@ -45,7 +45,6 @@ import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
-
 /**
  * Created by Raúl L.C. on 3/1/24.
  */
@@ -60,11 +59,12 @@ fun HomeScreen(
     val records by homeViewModel.recordsState.collectAsState()
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(brush = Brush.verticalGradient(colors = listOf(DarkBlue, LightBlue))),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(brush = Brush.verticalGradient(colors = listOf(DarkBlue, LightBlue))),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
         Spacer(modifier = Modifier.weight(1f))
         Text("MinesWeeper", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 36.sp)
@@ -72,28 +72,31 @@ fun HomeScreen(
             painter = painterResource(Res.drawable.ic_mineseeper),
             contentDescription = "App Logo",
             contentScale = ContentScale.Fit,
-            modifier = Modifier
-                .padding(top = 16.dp)
-                .size(220.dp)
+            modifier =
+                Modifier
+                    .padding(top = 16.dp)
+                    .size(220.dp),
         )
         Spacer(modifier = Modifier.weight(2f))
         OutlinedCard(
             colors = CardDefaults.cardColors(containerColor = RecordsBoard),
             border = BorderStroke(1.dp, Color.Black),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
         ) {
             RecordText(
                 text = stringResource(Res.string.best_times),
                 color = Color.Black,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(8.dp),
             )
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                horizontalArrangement = Arrangement.SpaceAround
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                horizontalArrangement = Arrangement.SpaceAround,
             ) {
                 RecordText(text = records.easy, color = Color(0xFF3F51B5))
                 RecordText(text = records.medium, color = Color(0xFF0F3452))
@@ -105,15 +108,18 @@ fun HomeScreen(
         OutlinedCustomButton(
             text = stringResource(Res.string.btn_play_easy),
             color = Color(0xFF3F51B5),
-            onClick = { navigateToGame(Level.Easy) })
+            onClick = { navigateToGame(Level.Easy) },
+        )
         OutlinedCustomButton(
             text = stringResource(Res.string.btn_play_medium),
             color = Color(0xFF0F3452),
-            onClick = { navigateToGame(Level.Medium) })
+            onClick = { navigateToGame(Level.Medium) },
+        )
         OutlinedCustomButton(
             text = stringResource(Res.string.btn_play_hard),
             color = Color(0xFFF44336),
-            onClick = { navigateToGame(Level.Hard) })
+            onClick = { navigateToGame(Level.Hard) },
+        )
 
         Spacer(modifier = Modifier.weight(1f))
         FloatingActionButton(containerColor = DarkBlue, onClick = { navigateToHelp() }) {
@@ -121,21 +127,24 @@ fun HomeScreen(
                 modifier = Modifier.size(35.dp),
                 painter = painterResource(Res.drawable.ic_help),
                 contentDescription = stringResource(Res.string.help),
-                tint = Color.White
+                tint = Color.White,
             )
         }
         Spacer(modifier = Modifier.weight(0.5f))
     }
 }
 
-
 @Composable
-private fun RecordText(text: String, color: Color, modifier: Modifier = Modifier) {
+private fun RecordText(
+    text: String,
+    color: Color,
+    modifier: Modifier = Modifier,
+) {
     Text(
         modifier = modifier,
         text = text,
         color = color,
         fontSize = 18.sp,
-        fontWeight = FontWeight.Bold
+        fontWeight = FontWeight.Bold,
     )
 }

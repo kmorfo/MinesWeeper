@@ -30,14 +30,16 @@ class HomeViewModel() : ViewModel(), KoinComponent {
 
     private fun loadRecords(level: Level) {
         viewModelScope.launch {
-            val record = async {
-                databaseServiceImpl.getRecordByLevel(level = level).first()
-            }.await()
-            _recordsState.value =  when (level) {
-                Level.Easy -> _recordsState.value.copy(easy = record)
-                Level.Medium -> _recordsState.value.copy(medium = record)
-                Level.Hard -> _recordsState.value.copy(hard = record)
-            }
+            val record =
+                async {
+                    databaseServiceImpl.getRecordByLevel(level = level).first()
+                }.await()
+            _recordsState.value =
+                when (level) {
+                    Level.Easy -> _recordsState.value.copy(easy = record)
+                    Level.Medium -> _recordsState.value.copy(medium = record)
+                    Level.Hard -> _recordsState.value.copy(hard = record)
+                }
         }
     }
 }
@@ -47,4 +49,3 @@ data class RecordState(
     val medium: String = "9999",
     val hard: String = "9999",
 )
-

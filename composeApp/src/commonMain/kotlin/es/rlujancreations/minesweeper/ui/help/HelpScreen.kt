@@ -1,6 +1,5 @@
 package es.rlujancreations.minesweeper.ui.help
 
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -32,7 +31,11 @@ import es.rlujancreations.minesweeper.ui.theme.BoardBackground
 import es.rlujancreations.minesweeper.ui.theme.DarkBlue
 import es.rlujancreations.minesweeper.ui.theme.HeaderBackground
 import minesweeper.composeapp.generated.resources.Res
-import minesweeper.composeapp.generated.resources.*
+import minesweeper.composeapp.generated.resources.back_home
+import minesweeper.composeapp.generated.resources.help_new
+import minesweeper.composeapp.generated.resources.help_text
+import minesweeper.composeapp.generated.resources.ic_logorc
+import minesweeper.composeapp.generated.resources.ic_mineseeper
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -40,60 +43,70 @@ import org.jetbrains.compose.resources.stringResource
  * Created by Raúl L.C. on 11/1/24.
  */
 @Composable
-fun HelpScreen(modifier: Modifier = Modifier, navigateToHome: () -> Unit) {
+fun HelpScreen(
+    modifier: Modifier = Modifier,
+    navigateToHome: () -> Unit,
+) {
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .background(
-                brush = Brush.verticalGradient(colors = listOf(HeaderBackground, BoardBackground))
-            )
-            .padding(8.dp),
-        verticalArrangement = Arrangement.SpaceAround
+        modifier =
+            modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .background(
+                    brush =
+                        Brush.verticalGradient(
+                            colors = listOf(HeaderBackground, BoardBackground),
+                        ),
+                )
+                .padding(8.dp),
+        verticalArrangement = Arrangement.SpaceAround,
     ) {
         OutlinedButton(
             colors = ButtonDefaults.outlinedButtonColors(containerColor = DarkBlue),
             shape = CircleShape,
-            onClick = { navigateToHome() }) {
+            onClick = { navigateToHome() },
+        ) {
             Icon(
                 imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                contentDescription = stringResource( Res.string.back_home),
-                tint = Color.White
+                contentDescription = stringResource(Res.string.back_home),
+                tint = Color.White,
             )
         }
         Image(
             painter = painterResource(Res.drawable.ic_mineseeper),
             contentDescription = "App Logo",
             contentScale = ContentScale.Fit,
-            modifier = Modifier
-                .padding(top = 16.dp)
-                .size(180.dp)
-                .align(Alignment.CenterHorizontally)
+            modifier =
+                Modifier
+                    .padding(top = 16.dp)
+                    .size(180.dp)
+                    .align(Alignment.CenterHorizontally),
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = stringResource( Res.string.help_text),
+            text = stringResource(Res.string.help_text),
             textAlign = TextAlign.Justify,
             color = Color.Black,
             fontSize = 16.sp,
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp)
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp),
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = stringResource( Res.string.help_new),
+            text = stringResource(Res.string.help_new),
             textAlign = TextAlign.Justify,
             color = Color.Black,
             fontSize = 16.sp,
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp)
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp),
         )
         Image(
             painter = painterResource(Res.drawable.ic_logorc),
             contentDescription = "RLujanCreations Logo",
             contentScale = ContentScale.Fit,
-            modifier = Modifier
-                .padding(top = 16.dp)
-                .size(320.dp)
-                .align(Alignment.CenterHorizontally)
+            modifier =
+                Modifier
+                    .padding(top = 16.dp)
+                    .size(320.dp)
+                    .align(Alignment.CenterHorizontally),
         )
     }
 }

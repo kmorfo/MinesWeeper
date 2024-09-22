@@ -8,7 +8,12 @@ import kotlinx.coroutines.flow.Flow
  */
 
 interface DatabaseService {
-    suspend fun saveRecordLevel(time: String, level: Level)
+    suspend fun saveRecordLevel(
+        time: String,
+        level: Level,
+    )
+
     suspend fun clearRecordLevel(level: Level)
+
     fun getRecordByLevel(level: Level): Flow<String>
 }

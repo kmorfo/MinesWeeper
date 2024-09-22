@@ -4,25 +4,25 @@ android-compileSdk = "34"
 android-minSdk = "24"
 android-targetSdk = "34"
 android-versionCode="1"
-androidx-activityCompose = "1.9.0"
+androidx-activityCompose = "1.9.2"
 androidx-appcompat = "1.7.0"
 androidx-constraintlayout = "2.1.4"
 androidx-core-ktx = "1.13.1"
-androidx-espresso-core = "3.6.0"
+androidx-espresso-core = "3.6.1"
 androidx-material = "1.12.0"
-androidx-test-junit = "1.2.0"
+androidx-test-junit = "1.2.1"
 compose-plugin = "1.6.11"
 junit = "4.13.2"
-kotlin = "2.0.0"
+kotlin = "2.0.20"
 kotlinxCoroutinesCore = "1.6.4-native-mt"
-navigation-compose = "2.8.0-alpha02"
-androidx-lifecycle = "2.8.0"
+navigation-compose = "2.8.0-alpha10"
+androidx-lifecycle = "2.8.2"
 datastorePreferences = "1.1.1"
 #ksp = "2.0.0-1.0.21"
 buildconfig = "5.3.5"
-koin = "3.6.0-Beta4"
-koinCompose = "1.2.0-Beta4"
-
+koin = "3.6.0-Beta5"
+koinCompose = "1.2.0-Beta5"
+ktlint = "12.1.1"
 
 
 [libraries]
@@ -65,3 +65,5 @@ androidLibrary = { id = "com.android.library", version.ref = "agp" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }

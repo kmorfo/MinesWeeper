@@ -16,17 +16,19 @@ import org.koin.dsl.module
  * Created by Raúl L.C. on 29/6/24.
  */
 
-val dataStoreModule = module {
-    single { provideDataStore() }
-    single<DatabaseService> { DatabaseServiceImpl(get()) }
-}
+val dataStoreModule =
+    module {
+        single { provideDataStore() }
+        single<DatabaseService> { DatabaseServiceImpl(get()) }
+    }
 
-val viewModelsModule = module {
-    single { Board() }
+val viewModelsModule =
+    module {
+        single { Board() }
 
-    viewModelOf(::HomeViewModel)
-    viewModelOf(::GameViewModel)
-}
+        viewModelOf(::HomeViewModel)
+        viewModelOf(::GameViewModel)
+    }
 
 expect val nativeModule: Module
 

@@ -19,7 +19,7 @@ kotlin {
     listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64()
+        iosSimulatorArm64(),
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
@@ -48,7 +48,7 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
-            //DataStore
+            // DataStore
             implementation(libs.androidx.datastore)
             implementation(libs.androidx.datastore.preferences)
         }
@@ -59,11 +59,11 @@ kotlin {
     // Added to prevent a build error when using Android Studio "Make" button
     task("testClasses")
 
-    //Test and improving performance
+    // Test and improving performance
     composeCompiler {
         reportsDestination = file("build/outputs/compose_reports")
         metricsDestination = file("build/outputs/compose_metrics")
-        stabilityConfigurationFile = file("/${rootDir}/stability-config.txt")
+        stabilityConfigurationFile = file("/$rootDir/stability-config.txt")
 //        I keep this option by example but does work well yet
 //        enableStrongSkippingMode = true
     }
@@ -108,4 +108,3 @@ android {
 dependencies {
     testImplementation(libs.junit)
 }
-
