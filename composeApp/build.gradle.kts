@@ -32,7 +32,9 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+
             implementation(libs.koin.android)
+            implementation(libs.koin.androidx.compose)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -44,10 +46,12 @@ kotlin {
             implementation(libs.androidx.navigation.compose)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.viewmodel.compose)
-            implementation(project.dependencies.platform(libs.koin.bom))
-            implementation(libs.koin.core)
+
+            //Koin
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
+            api(libs.koin.core)
+
             // DataStore
             implementation(libs.androidx.datastore)
             implementation(libs.androidx.datastore.preferences)
