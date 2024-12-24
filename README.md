@@ -24,6 +24,10 @@ The original version of this project with the Android version is available on th
 - **DataStore Preferences**: Used to save the user's best times locally.
 
 ---
+## Video demo
+<video  controls>
+  <source src="./githubimages/video.mov" type="video/mp4">
+</video>
 
 ## Screenshots mobile
 
