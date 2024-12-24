@@ -17,4 +17,4 @@ captures
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
 /BAK/
-/composeApp/prefs.preferences_pb
+./composeApp/prefs.preferences_pb
