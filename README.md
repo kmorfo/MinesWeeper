@@ -25,9 +25,7 @@ The original version of this project with the Android version is available on th
 
 ---
 ## Video demo
-<video  controls>
-  <source src="./githubimages/video.mp4" type="video/mp4">
-</video>
+[![Video demo](https://img.youtube.com/vi/gymK4fz0XTI/0.jpg)](https://www.youtube.com/watch?v=gymK4fz0XTI)
 
 ## Screenshots mobile
 
