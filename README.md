@@ -10,22 +10,31 @@ This is my version of the classic game Minesweeper, developed in Kotlin.
 
 **Updated to Compose Multi Platform**: This game is now available on Android, iOS and Desktop.
 
-The original version of this project with the Android version is available on the branch [**Kotlin**](https://github.com/kmorfo/MinesWeeper/tree/Kotlin).
+The original version of this project with the Android version is available on the branch [**Kotlin
+**](https://github.com/kmorfo/MinesWeeper/tree/Kotlin).
 
 ## Main Features and Technologies Used
 
 - **KMP**: Compose Multi Platform
-- **Kotlin 2.0**: Utilized for its modern features and performance improvements, making it easier to develop a robust and efficient application.
-- **Jetpack Compose**: The user interface is developed using this modern Android UI toolkit, enabling the creation of flexible and dynamic interfaces.
-- **MVVM**: Implements the Model-View-ViewModel pattern to separate presentation logic from business logic and data, improving testability and code organization.
-- **Dependency Injection - Koin** ~~(formerly Dagger-Hilt)~~: Simplifies dependency management, allowing for better scalability and unit testing.
-- **Unit Testing**: User interface tests ensure the app behaves correctly and provides a smooth user experience.
-- **Flows**: Handles asynchronous data streams, providing a clean way to manage state and data flow within the application.
+- **Kotlin 2.0**: Utilized for its modern features and performance improvements, making it easier to
+  develop a robust and efficient application.
+- **Jetpack Compose**: The user interface is developed using this modern Android UI toolkit,
+  enabling the creation of flexible and dynamic interfaces.
+- **MVVM**: Implements the Model-View-ViewModel pattern to separate presentation logic from business
+  logic and data, improving testability and code organization.
+- **Dependency Injection - Koin** ~~(formerly Dagger-Hilt)~~: Simplifies dependency management,
+  allowing for better scalability and unit testing.
+- **Unit Testing**: User interface tests ensure the app behaves correctly and provides a smooth user
+  experience.
+- **Flows**: Handles asynchronous data streams, providing a clean way to manage state and data flow
+  within the application.
 - **DataStore Preferences**: Used to save the user's best times locally.
 
 ---
-## Video demo
-<iframe width="800" height="600" src="https://www.youtube.com/embed/gymK4fz0XTI" title="Classic MinesWeeper" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+### Watch demo on Youtube
+
+[![Watch video on Youtube](https://img.youtube.com/vi/gymK4fz0XTI/0.jpg)](https://www.youtube.com/watch?v=gymK4fz0XTI)
 
 ## Screenshots mobile
 
@@ -40,10 +49,13 @@ The original version of this project with the Android version is available on th
 | ![Both Systems](./githubimages/bothsystems.png) |                                           |
 
 ---
+
 ## Screenshots desktop
-|                    **Home**                     |                 **Game**                  |
-| :---------------------------------------------: | :---------------------------------------: |
-|     ![Home Screen](./githubimages/desktop_menu.png)     |  ![Game Screen](./githubimages/desktop_game.png)  |
+
+|                    **Home**                     |                    **Game**                     |
+| :---------------------------------------------: | :---------------------------------------------: |
+| ![Home Screen](./githubimages/desktop_menu.png) | ![Game Screen](./githubimages/desktop_game.png) |
+
 ---
 
 ## To-Do List
