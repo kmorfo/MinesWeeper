@@ -25,7 +25,7 @@ The original version of this project with the Android version is available on th
 
 ---
 ## Video demo
-[![Video demo](https://img.youtube.com/vi/gymK4fz0XTI/0.jpg)](https://www.youtube.com/watch?v=gymK4fz0XTI)
+<iframe width="800" height="600" src="https://www.youtube.com/embed/gymK4fz0XTI" title="Classic MinesWeeper" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## Screenshots mobile
 
