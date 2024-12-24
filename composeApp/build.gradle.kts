@@ -1,3 +1,4 @@
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -10,11 +11,12 @@ plugins {
 
 kotlin {
     androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
+
+    jvm("desktop")
 
     listOf(
         iosX64(),
@@ -28,13 +30,12 @@ kotlin {
     }
 
     sourceSets {
+        val desktopMain by getting
 
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
-
             implementation(libs.koin.android)
-            implementation(libs.koin.androidx.compose)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -43,21 +44,26 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-            implementation(libs.androidx.navigation.compose)
             implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.androidx.lifecycle.viewmodel.compose)
+            implementation(libs.androidx.lifecycle.runtime.compose)
 
-            //Koin
+            implementation(libs.navigation.compose)
+
             implementation(libs.koin.compose)
+            implementation(libs.koin.core)
             implementation(libs.koin.compose.viewmodel)
-            api(libs.koin.core)
 
             // DataStore
             implementation(libs.androidx.datastore)
             implementation(libs.androidx.datastore.preferences)
         }
         iosMain.dependencies {
-            implementation(libs.kotlinx.coroutines.core)
+
+        }
+
+        desktopMain.dependencies {
+            implementation(compose.desktop.currentOs)
+            implementation(libs.kotlinx.coroutines.swing)
         }
     }
     // Added to prevent a build error when using Android Studio "Make" button
@@ -67,8 +73,8 @@ kotlin {
     composeCompiler {
         reportsDestination = file("build/outputs/compose_reports")
         metricsDestination = file("build/outputs/compose_metrics")
-        stabilityConfigurationFile = file("/$rootDir/stability-config.txt")
-//        I keep this option by example but does work well yet
+//        stabilityConfigurationFile = file("/$rootDir/stability-config.txt")
+//        Its enable by default on kotlin 2.0.20
 //        enableStrongSkippingMode = true
     }
 }
@@ -111,4 +117,23 @@ android {
 }
 dependencies {
     testImplementation(libs.junit)
+}
+compose.desktop {
+    application {
+        mainClass = "es.rlujancreations.minesweeper.MainKt"
+
+        nativeDistributions {
+            targetFormats(TargetFormat.Dmg, TargetFormat.Deb, TargetFormat.Msi)
+            packageName = "es.rlujancreations.minesweeper"
+            version = "1.0.0"
+
+            macOS {
+                iconFile.set(project.file("resources/icon.icns"))
+            }
+
+//            windows{
+//                iconFile.set(project.file("resources/icon.ico"))
+//            }
+        }
+    }
 }

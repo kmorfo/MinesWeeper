@@ -8,7 +8,7 @@
 
 This is my version of the classic game Minesweeper, developed in Kotlin.
 
-**Updated to Compose Multi Platform**: This game is now available on Android and iOS.
+**Updated to Compose Multi Platform**: This game is now available on Android, iOS and Desktop.
 
 The original version of this project with the Android version is available on the branch [**Kotlin**](https://github.com/kmorfo/MinesWeeper/tree/Kotlin).
 
@@ -25,29 +25,36 @@ The original version of this project with the Android version is available on th
 
 ---
 
-## Screenshots
+## Screenshots mobile
 
-|                 **Home**                |                **Game**                |
-|:---------------------------------------:|:--------------------------------------:|
-| ![Home Screen](./githubimages/home.png) | ![Game Screen](./githubimages/game.png) |
-|                 **iOS Menu**            |                **iOS Game**            |
-| ![iOS Menu](./githubimages/iosmenu.png) | ![iOS Game](./githubimages/iosgame.png) |
-|                 **Game Win**            |                 **Game Loss**          |
-| ![Game Win](./githubimages/wingame.png) | ![Game Loss](./githubimages/losegame.png) |
-|                **Both Systems**         |                                         |
-|            ![Both Systems](./githubimages/bothsystems.png)            |                                         |                                                
+|                    **Home**                     |                 **Game**                  |
+| :---------------------------------------------: | :---------------------------------------: |
+|     ![Home Screen](./githubimages/home.png)     |  ![Game Screen](./githubimages/game.png)  |
+|                  **iOS Menu**                   |               **iOS Game**                |
+|     ![iOS Menu](./githubimages/iosmenu.png)     |  ![iOS Game](./githubimages/iosgame.png)  |
+|                  **Game Win**                   |               **Game Loss**               |
+|     ![Game Win](./githubimages/wingame.png)     | ![Game Loss](./githubimages/losegame.png) |
+|                **Both Systems**                 |                                           |
+| ![Both Systems](./githubimages/bothsystems.png) |                                           |
+
+---
+## Screenshots desktop
+|                    **Home**                     |                 **Game**                  |
+| :---------------------------------------------: | :---------------------------------------: |
+|     ![Home Screen](./githubimages/desktop_menu.png)     |  ![Game Screen](./githubimages/desktop_game.png)  |
 ---
 
 ## To-Do List
 
-- [X] App Icon on iOS and Android
-- [X] Convert to KMP
-- [X] End of game **status**
-- [X] Dialog for End of Game Status
-- [X] Toast alerts when the user has no more mines
-- [X] Animations in dialogs
-- [X] Persistence for saving records
-- [X] Show records on HomeScreen
-- [X] Board test created
+- [x] App Icon on iOS and Android
+- [x] Convert to KMP
+- [x] End of game **status**
+- [x] Dialog for End of Game Status
+- [x] Toast alerts when the user has no more mines
+- [x] Animations in dialogs
+- [x] Persistence for saving records
+- [x] Show records on HomeScreen
+- [x] Board test created
+- [x] Desktop version
 
 ---

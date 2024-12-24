@@ -10,6 +10,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -63,12 +64,11 @@ import minesweeper.composeapp.generated.resources.return_to_main
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
-import org.koin.core.annotation.KoinExperimentalAPI
 
 /**
  * Created by Raúl L.C. on 3/1/24.
  */
-@OptIn(KoinExperimentalAPI::class)
+
 @Composable
 fun GameScreen(
     gameViewModel: GameViewModel = koinViewModel(),
@@ -100,9 +100,9 @@ fun GameScreen(
     ) { paddingValues ->
         Column(
             modifier =
-                Modifier.fillMaxSize()
-                    .padding(paddingValues = paddingValues)
-                    .navigationBarsPadding(),
+            Modifier.fillMaxSize()
+                .padding(paddingValues = paddingValues)
+                .navigationBarsPadding(),
         ) {
             GameHeader(
                 gameStatus = gameUiState.gameStatus,
@@ -140,9 +140,9 @@ fun ResultDialog(
             ) {
                 Text(
                     modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
                     text = stringResource(gameStatus.description),
                     color = if (gameStatus == GameStatus.Losed) CounterFontColor else DarkBlue,
                     fontWeight = FontWeight.Bold,
@@ -154,10 +154,10 @@ fun ResultDialog(
                     contentDescription = stringResource(gameStatus.description),
                     contentScale = ContentScale.Fit,
                     modifier =
-                        Modifier
-                            .padding(top = 16.dp)
-                            .size(180.dp)
-                            .align(Alignment.CenterHorizontally),
+                    Modifier
+                        .padding(top = 16.dp)
+                        .size(180.dp)
+                        .align(Alignment.CenterHorizontally),
                 )
                 OutlinedCustomButton(
                     modifier = Modifier.fillMaxWidth(),
@@ -189,9 +189,9 @@ fun PauseDialog(
                 Text(
                     text = stringResource(gameStatus.description),
                     modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold,
                     color = Color.White,
@@ -199,10 +199,10 @@ fun PauseDialog(
                 )
                 Box(
                     modifier =
-                        modifier
-                            .fillMaxWidth()
-                            .height(1.dp)
-                            .background(Color.White),
+                    modifier
+                        .fillMaxWidth()
+                        .height(1.dp)
+                        .background(Color.White),
                 ) {}
                 TextButtonDialog(
                     stringResource(Res.string.resume),
@@ -232,24 +232,24 @@ fun GameBoard(
     val screenWidthDp = screenDimensions.screenWidthDp
     val screenHeightDp = screenDimensions.screenHeightDp
     val cellWith = screenWidthDp / gameViewModel.level.columns
-    val cellHeight = (screenHeightDp - 65) / gameViewModel.level.rows
+    val cellHeight = (screenHeightDp - 80) / gameViewModel.level.rows
 
     val scope = rememberCoroutineScope()
     val msgNoMines: String = stringResource(Res.string.no_mines)
 
     Column(
         modifier =
-            modifier
-                .fillMaxSize()
-                .background(BoardBackground),
+        modifier
+            .fillMaxSize()
+            .background(BoardBackground),
         verticalArrangement = Arrangement.SpaceBetween,
     ) {
         for (row in cells.indices) {
             Row(
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .height(cellHeight.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .height(cellHeight.dp),
                 horizontalArrangement = Arrangement.Center,
             ) {
                 for (column in cells[row].indices) {
@@ -257,9 +257,9 @@ fun GameBoard(
                     CellBoard(
                         cell = cell,
                         modifier =
-                            Modifier
-                                .width(cellWith.dp)
-                                .height(cellHeight.dp),
+                        Modifier
+                            .width(cellWith.dp)
+                            .height(cellHeight.dp),
                         onClick = { gameViewModel.onClick(it) },
                         onLongClick = {
                             gameViewModel.onLongClick(
@@ -291,12 +291,12 @@ fun GameHeader(
 ) {
     Row(
         modifier =
-            modifier
-                .fillMaxWidth()
-                .height(65.dp)
-                .background(HeaderBackground)
-                .border(1.dp, Color.Gray)
-                .padding(16.dp),
+        modifier
+            .fillMaxWidth()
+            .height(65.dp)
+            .background(HeaderBackground)
+            .border(1.dp, Color.Gray)
+            .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Spacer(modifier = Modifier.width(6.dp))
@@ -317,19 +317,19 @@ fun IconFaces(
 ) {
     Row(
         modifier =
-            modifier
-                .background(BoardBackground)
-                .size(40.dp)
-                .border(1.dp, Color.Gray),
+        modifier
+            .background(BoardBackground)
+            .size(40.dp)
+            .border(1.dp, Color.Gray),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
         Box(
             modifier =
-                modifier
-                    .background(BoardBackground)
-                    .size(36.dp)
-                    .border(1.dp, Color.Gray),
+            modifier
+                .background(BoardBackground)
+                .size(36.dp)
+                .border(1.dp, Color.Gray),
         ) {
             IconButton(onClick = { onIconClick() }) {
                 Image(
