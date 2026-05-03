@@ -1,6 +1,7 @@
-package es.rlujancreations.minesweeper
+package es.rlujancreations.androidapp
 
 import android.app.Application
+import es.rlujancreations.minesweeper.initKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.logger.Level

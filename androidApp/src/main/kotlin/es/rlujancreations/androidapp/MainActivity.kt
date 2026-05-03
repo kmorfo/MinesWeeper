@@ -1,4 +1,4 @@
-package es.rlujancreations.minesweeper
+package es.rlujancreations.androidapp
 
 import android.app.Activity
 import android.os.Bundle
@@ -11,12 +11,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import es.rlujancreations.minesweeper.App
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdge()
+
         setContent {
             EnableTransparentStatusBar()
             App()
